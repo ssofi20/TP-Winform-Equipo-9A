@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using negocio;
+using dominio;
 
 namespace Actividad2CatalogoApp
 {
@@ -31,9 +32,24 @@ namespace Actividad2CatalogoApp
             }
         }
 
+        private void cargar()
+        {
+            MarcaNegocio marcaNegocio = new MarcaNegocio();
+            try
+            {
+                dgvMarcas.DataSource = marcaNegocio.listar();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-
+            frmAgregarMarca agregarMarca = new frmAgregarMarca();
+            agregarMarca.ShowDialog();
+            cargar();
         }
     }
 }
