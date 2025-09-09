@@ -24,5 +24,11 @@ namespace Actividad2CatalogoApp
             ArticuloNegocio negocio = new ArticuloNegocio();
             dgvArticulos.DataSource = negocio.listar();
         }
+
+        private void tsmMarcas_Click(object sender, EventArgs e)
+        {
+            FromMarcas marcas = new FromMarcas();
+            marcas.ShowDialog();
+        }
     }
 }
