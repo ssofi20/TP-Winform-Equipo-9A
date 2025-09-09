@@ -17,7 +17,7 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("SELECT A.Id IdArticulo, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, A.IdCategoria, A.Precio, M.Id IdMarca, M.Descripcion NombreMarca, C.Id IdCategoria, C.Descripcion NombreCategoria, I.ImagenUrl, I.Id IdImagen FROM ARTICULOS A, MARCAS M, CATEGORIAS C, IMAGENES I WHERE A.IdMarca = M.Id AND A.IdCategoria = C.Id AND A.Id = I.IdArticulo");    
+                datos.setearConsulta("SELECT A.Id IdArticulo, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, A.IdCategoria, A.Precio, M.Id IdMarca, M.Descripcion NombreMarca, C.Id IdCategoria, C.Descripcion NombreCategoria, I.ImagenUrl, I.Id IdImagen FROM ARTICULOS A, MARCAS M, CATEGORIAS C, IMAGENES I WHERE A.IdMarca = M.Id AND A.IdCategoria = C.Id AND A.Id = I.IdArticulo");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -52,7 +52,6 @@ namespace negocio
 
                 throw ex;
             }
-
             return lista;
         }
     }

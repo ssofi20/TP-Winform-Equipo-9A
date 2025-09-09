@@ -14,6 +14,8 @@ namespace Actividad2CatalogoApp
 {
     public partial class Form1 : Form
     {
+        private List<Articulo> listaArticulo;
+
         public Form1()
         {
             InitializeComponent();
@@ -22,7 +24,30 @@ namespace Actividad2CatalogoApp
         private void Form1_Load(object sender, EventArgs e)
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
-            dgvArticulos.DataSource = negocio.listar();
+            listaArticulo = negocio.listar();
+            dgvArticulos.DataSource = listaArticulo;
+            cargarImagen(listaArticulo[0].Imagenes[0].Url);
+
+
+        }
+
+        private void cargarImagen(string imagen)
+        {
+            try
+            {
+                pcbxArticulo.Load(imagen);
+            }
+            catch (Exception ex)
+            {
+                pcbxArticulo.Load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ432ju-gdS2nl6CEobTaFXEe6_gRmK5DkWuQ&s");
+            }
+
+        }
+
+        private void dgvArticulos_SelectionChanged(object sender, EventArgs e)
+        {
+            Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+            cargarImagen(seleccionado.Imagenes[0].Url);
         }
     }
 }

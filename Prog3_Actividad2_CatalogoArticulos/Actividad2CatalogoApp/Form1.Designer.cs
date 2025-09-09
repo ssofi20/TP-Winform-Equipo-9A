@@ -34,14 +34,14 @@
             this.btnAgregar = new System.Windows.Forms.Button();
             this.btnDetalle = new System.Windows.Forms.Button();
             this.dgvArticulos = new System.Windows.Forms.DataGridView();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.tsmArticulos = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmMarcas = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmCategorias = new System.Windows.Forms.ToolStripMenuItem();
+            this.pcbxArticulo = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbxArticulo)).BeginInit();
             this.SuspendLayout();
             // 
             // btnBuscar
@@ -82,7 +82,7 @@
             // 
             // btnDetalle
             // 
-            this.btnDetalle.Location = new System.Drawing.Point(654, 378);
+            this.btnDetalle.Location = new System.Drawing.Point(676, 378);
             this.btnDetalle.Name = "btnDetalle";
             this.btnDetalle.Size = new System.Drawing.Size(105, 30);
             this.btnDetalle.TabIndex = 4;
@@ -98,14 +98,7 @@
             this.dgvArticulos.RowTemplate.Height = 24;
             this.dgvArticulos.Size = new System.Drawing.Size(514, 228);
             this.dgvArticulos.TabIndex = 5;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(577, 124);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(251, 228);
-            this.pictureBox1.TabIndex = 6;
-            this.pictureBox1.TabStop = false;
+            this.dgvArticulos.SelectionChanged += new System.EventHandler(this.dgvArticulos_SelectionChanged);
             // 
             // menuStrip1
             // 
@@ -138,12 +131,21 @@
             this.tsmCategorias.Size = new System.Drawing.Size(94, 24);
             this.tsmCategorias.Text = "Categorias";
             // 
+            // pcbxArticulo
+            // 
+            this.pcbxArticulo.Location = new System.Drawing.Point(611, 124);
+            this.pcbxArticulo.Name = "pcbxArticulo";
+            this.pcbxArticulo.Size = new System.Drawing.Size(228, 228);
+            this.pcbxArticulo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcbxArticulo.TabIndex = 6;
+            this.pcbxArticulo.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(875, 446);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pcbxArticulo);
             this.Controls.Add(this.dgvArticulos);
             this.Controls.Add(this.btnDetalle);
             this.Controls.Add(this.btnAgregar);
@@ -156,9 +158,9 @@
             this.Text = "Catalogo";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbxArticulo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -172,11 +174,11 @@
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.Button btnDetalle;
         private System.Windows.Forms.DataGridView dgvArticulos;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem tsmArticulos;
         private System.Windows.Forms.ToolStripMenuItem tsmMarcas;
         private System.Windows.Forms.ToolStripMenuItem tsmCategorias;
+        private System.Windows.Forms.PictureBox pcbxArticulo;
     }
 }
 
