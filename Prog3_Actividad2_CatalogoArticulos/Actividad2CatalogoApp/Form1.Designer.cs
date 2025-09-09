@@ -125,6 +125,7 @@
             this.tsmMarcas.Name = "tsmMarcas";
             this.tsmMarcas.Size = new System.Drawing.Size(70, 24);
             this.tsmMarcas.Text = "Marcas";
+            this.tsmMarcas.Click += new System.EventHandler(this.tsmMarcas_Click);
             // 
             // tsmCategorias
             // 
@@ -156,6 +157,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Catalogo";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).EndInit();

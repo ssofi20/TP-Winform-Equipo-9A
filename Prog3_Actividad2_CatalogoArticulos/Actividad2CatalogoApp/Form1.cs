@@ -55,5 +55,11 @@ namespace Actividad2CatalogoApp
             frmAgregarArticulo alta = new frmAgregarArticulo();
             alta.ShowDialog();
         }
+
+        private void tsmMarcas_Click(object sender, EventArgs e)
+        {
+            FromMarcas marcas = new FromMarcas();
+            marcas.ShowDialog();
+        }
     }
 }
