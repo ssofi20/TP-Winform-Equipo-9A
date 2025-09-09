@@ -15,6 +15,16 @@ namespace negocio
         {
             List<Articulo> lista = new List<Articulo>();
 
+            try
+            {
+                
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
             return lista;
         }
     }
