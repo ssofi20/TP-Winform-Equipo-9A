@@ -23,10 +23,12 @@ namespace Actividad2CatalogoApp
         private void frmAgregarArticulo_Load(object sender, EventArgs e)
         {
             CategoriaNegocio auxCat = new CategoriaNegocio();
+            MarcaNegocio auxMarca = new MarcaNegocio();
 
             try
             {
                 cbxCategoria.DataSource = auxCat.listar();
+                cbxMarca.DataSource = auxMarca.listar();
             }
             catch (Exception ex)
             {

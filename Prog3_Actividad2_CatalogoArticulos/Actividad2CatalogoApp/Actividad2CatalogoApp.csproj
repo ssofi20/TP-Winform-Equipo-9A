@@ -63,6 +63,7 @@
     </Compile>
     <Compile Include="frmAgregarArticulo.Designer.cs">
       <DependentUpon>frmAgregarArticulo.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAgregarMarca.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +86,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmAgregarArticulo.resx">
       <DependentUpon>frmAgregarArticulo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAgregarMarca.resx">
       <DependentUpon>frmAgregarMarca.cs</DependentUpon>
     </EmbeddedResource>
