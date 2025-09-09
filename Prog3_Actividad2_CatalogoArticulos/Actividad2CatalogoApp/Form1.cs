@@ -49,5 +49,11 @@ namespace Actividad2CatalogoApp
             Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
             cargarImagen(seleccionado.Imagenes[0].Url);
         }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            frmAgregarArticulo alta = new frmAgregarArticulo();
+            alta.ShowDialog();
+        }
     }
 }
