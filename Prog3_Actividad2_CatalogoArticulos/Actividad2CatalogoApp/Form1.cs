@@ -27,8 +27,6 @@ namespace Actividad2CatalogoApp
             listaArticulo = negocio.listar();
             dgvArticulos.DataSource = listaArticulo;
             cargarImagen(listaArticulo[0].Imagenes[0].Url);
-
-
         }
 
         private void cargarImagen(string imagen)
@@ -63,6 +61,28 @@ namespace Actividad2CatalogoApp
         {
             FromMarcas marcas = new FromMarcas();
             marcas.ShowDialog();
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            ArticuloNegocio negocio = new ArticuloNegocio();
+            Articulo seleccionado;
+
+            try
+            {
+                DialogResult respuesta = MessageBox.Show("¿Seguro que desea eliminar el artículo?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (respuesta == DialogResult.Yes)
+                {
+                    seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                    negocio.eliminar(seleccionado.Id);
+                    listaArticulo = negocio.listar();
+                    dgvArticulos.DataSource = listaArticulo;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }

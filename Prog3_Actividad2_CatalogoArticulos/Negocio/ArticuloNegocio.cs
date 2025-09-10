@@ -80,6 +80,26 @@ namespace negocio
 
         }
 
+        public void eliminar(int id)
+        {
+            try
+            {
+                datos.setearConsulta("Delete from ARTICULOS where Id = @id");
+                datos.setearParametro("@id", id);
+
+                datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
 
     }
 }
