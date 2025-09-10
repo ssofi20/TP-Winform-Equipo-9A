@@ -52,6 +52,14 @@ namespace Actividad2CatalogoApp
                 nuevo.Descripcion = tbxDescription.Text;
                 nuevo.Marca = (Marca)cbxMarca.SelectedItem;
                 nuevo.Categoria = (Categoria)cbxCategoria.SelectedItem;
+                nuevo.Precio = decimal.Parse(txtPrecio.Text);
+
+                Marca marcaSeleccionada = (Marca)cbxMarca.SelectedItem;
+                Categoria categoriaSeleccionada = (Categoria)cbxCategoria.SelectedItem;
+
+                nuevo.Marca.Id = marcaSeleccionada.Id;
+
+                nuevo.Categoria.Id = categoriaSeleccionada.Id;
 
                 negocio.agregar(nuevo);
                 MessageBox.Show("Agregado exitosamente");
@@ -63,6 +71,6 @@ namespace Actividad2CatalogoApp
             }
         }
 
-
+     
     }
 }

@@ -44,6 +44,8 @@
             this.tsmArticulos = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmMarcas = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmCategorias = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblPrecio = new System.Windows.Forms.Label();
+            this.txtPrecio = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -85,7 +87,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(245, 280);
+            this.btnCancelar.Location = new System.Drawing.Point(245, 309);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(88, 35);
             this.btnCancelar.TabIndex = 19;
@@ -95,7 +97,7 @@
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(117, 280);
+            this.btnAceptar.Location = new System.Drawing.Point(117, 309);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(91, 35);
             this.btnAceptar.TabIndex = 18;
@@ -182,11 +184,29 @@
             this.tsmCategorias.Size = new System.Drawing.Size(94, 24);
             this.tsmCategorias.Text = "Categorias";
             // 
+            // lblPrecio
+            // 
+            this.lblPrecio.AutoSize = true;
+            this.lblPrecio.Location = new System.Drawing.Point(105, 243);
+            this.lblPrecio.Name = "lblPrecio";
+            this.lblPrecio.Size = new System.Drawing.Size(49, 16);
+            this.lblPrecio.TabIndex = 25;
+            this.lblPrecio.Text = "Precio:";
+            // 
+            // txtPrecio
+            // 
+            this.txtPrecio.Location = new System.Drawing.Point(201, 243);
+            this.txtPrecio.Name = "txtPrecio";
+            this.txtPrecio.Size = new System.Drawing.Size(152, 22);
+            this.txtPrecio.TabIndex = 26;
+            // 
             // frmAgregarArticulo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(472, 404);
+            this.Controls.Add(this.txtPrecio);
+            this.Controls.Add(this.lblPrecio);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.cbxMarca);
             this.Controls.Add(this.cbxCategoria);
@@ -228,5 +248,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsmArticulos;
         private System.Windows.Forms.ToolStripMenuItem tsmMarcas;
         private System.Windows.Forms.ToolStripMenuItem tsmCategorias;
+        private System.Windows.Forms.Label lblPrecio;
+        private System.Windows.Forms.TextBox txtPrecio;
     }
 }
