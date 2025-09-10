@@ -18,20 +18,6 @@ namespace Actividad2CatalogoApp
         {
             InitializeComponent();
         }
-
-        private void FromMarcas_Load(object sender, EventArgs e)
-        {
-            MarcaNegocio marcaNegocio = new MarcaNegocio();
-            try
-            {
-                dgvMarcas.DataSource = marcaNegocio.listar();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
         private void cargar()
         {
             MarcaNegocio marcaNegocio = new MarcaNegocio();
@@ -45,11 +31,39 @@ namespace Actividad2CatalogoApp
             }
         }
 
+        private void FromMarcas_Load(object sender, EventArgs e)
+        {
+            cargar();
+        }
+
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             frmAgregarMarca agregarMarca = new frmAgregarMarca();
             agregarMarca.ShowDialog();
             cargar();
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            MarcaNegocio marcaNegocio = new MarcaNegocio();
+            Marca marcaSeleccionada;
+            try
+            {
+                if (dgvMarcas.CurrentRow != null)
+                {
+                    marcaSeleccionada = (Marca)dgvMarcas.CurrentRow.DataBoundItem;
+                    DialogResult respuesta = MessageBox.Show("¿Está seguro que desea eliminar la marca " + marcaSeleccionada.Descripcion + "?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (respuesta == DialogResult.Yes)
+                    {
+                        marcaNegocio.eliminar(marcaSeleccionada.Id);
+                        cargar();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }
