@@ -21,12 +21,25 @@ namespace Actividad2CatalogoApp
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void cargar()
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
-            listaArticulo = negocio.listar();
-            dgvArticulos.DataSource = listaArticulo;
-            cargarImagen(listaArticulo[0].Imagenes[0].Url);
+            try
+            {
+                listaArticulo = negocio.listar();
+                dgvArticulos.DataSource = listaArticulo;
+                dgvArticulos.Columns["Id"].Visible = false;
+                cargarImagen(listaArticulo[0].Imagenes[0].Url);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            cargar();
         }
 
         private void cargarImagen(string imagen)
@@ -75,8 +88,7 @@ namespace Actividad2CatalogoApp
                 {
                     seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
                     negocio.eliminar(seleccionado.Id);
-                    listaArticulo = negocio.listar();
-                    dgvArticulos.DataSource = listaArticulo;
+                    cargar();
                 }
             }
             catch (Exception ex)
