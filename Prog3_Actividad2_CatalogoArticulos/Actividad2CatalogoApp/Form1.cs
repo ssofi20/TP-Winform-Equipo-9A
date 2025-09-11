@@ -96,5 +96,15 @@ namespace Actividad2CatalogoApp
                 MessageBox.Show(ex.ToString());
             }
         }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            Articulo seleccionado;
+            seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+
+            frmAgregarArticulo modificar = new frmAgregarArticulo(seleccionado);
+            modificar.ShowDialog();
+            cargar();
+        }
     }
 }

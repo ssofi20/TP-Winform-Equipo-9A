@@ -46,18 +46,20 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(48, 56);
+            this.btnBuscar.Location = new System.Drawing.Point(36, 46);
+            this.btnBuscar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(105, 30);
+            this.btnBuscar.Size = new System.Drawing.Size(79, 24);
             this.btnBuscar.TabIndex = 0;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(362, 378);
+            this.btnEliminar.Location = new System.Drawing.Point(272, 307);
+            this.btnEliminar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(105, 30);
+            this.btnEliminar.Size = new System.Drawing.Size(79, 24);
             this.btnEliminar.TabIndex = 1;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
@@ -65,18 +67,21 @@
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(208, 378);
+            this.btnModificar.Location = new System.Drawing.Point(156, 307);
+            this.btnModificar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(105, 30);
+            this.btnModificar.Size = new System.Drawing.Size(79, 24);
             this.btnModificar.TabIndex = 2;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(48, 378);
+            this.btnAgregar.Location = new System.Drawing.Point(36, 307);
+            this.btnAgregar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(105, 30);
+            this.btnAgregar.Size = new System.Drawing.Size(79, 24);
             this.btnAgregar.TabIndex = 3;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = true;
@@ -84,9 +89,10 @@
             // 
             // btnDetalle
             // 
-            this.btnDetalle.Location = new System.Drawing.Point(1022, 378);
+            this.btnDetalle.Location = new System.Drawing.Point(766, 307);
+            this.btnDetalle.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnDetalle.Name = "btnDetalle";
-            this.btnDetalle.Size = new System.Drawing.Size(105, 30);
+            this.btnDetalle.Size = new System.Drawing.Size(79, 24);
             this.btnDetalle.TabIndex = 4;
             this.btnDetalle.Text = "Ver detalle";
             this.btnDetalle.UseVisualStyleBackColor = true;
@@ -95,13 +101,14 @@
             // 
             this.dgvArticulos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvArticulos.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvArticulos.Location = new System.Drawing.Point(48, 124);
+            this.dgvArticulos.Location = new System.Drawing.Point(36, 101);
+            this.dgvArticulos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgvArticulos.MultiSelect = false;
             this.dgvArticulos.Name = "dgvArticulos";
             this.dgvArticulos.RowHeadersWidth = 51;
             this.dgvArticulos.RowTemplate.Height = 24;
             this.dgvArticulos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvArticulos.Size = new System.Drawing.Size(880, 228);
+            this.dgvArticulos.Size = new System.Drawing.Size(660, 185);
             this.dgvArticulos.TabIndex = 5;
             this.dgvArticulos.SelectionChanged += new System.EventHandler(this.dgvArticulos_SelectionChanged);
             // 
@@ -114,43 +121,45 @@
             this.tsmCategorias});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1220, 28);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(915, 24);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // tsmArticulos
             // 
             this.tsmArticulos.Name = "tsmArticulos";
-            this.tsmArticulos.Size = new System.Drawing.Size(81, 24);
+            this.tsmArticulos.Size = new System.Drawing.Size(66, 20);
             this.tsmArticulos.Text = "Articulos";
             // 
             // tsmMarcas
             // 
             this.tsmMarcas.Name = "tsmMarcas";
-            this.tsmMarcas.Size = new System.Drawing.Size(70, 24);
+            this.tsmMarcas.Size = new System.Drawing.Size(57, 20);
             this.tsmMarcas.Text = "Marcas";
             this.tsmMarcas.Click += new System.EventHandler(this.tsmMarcas_Click);
             // 
             // tsmCategorias
             // 
             this.tsmCategorias.Name = "tsmCategorias";
-            this.tsmCategorias.Size = new System.Drawing.Size(94, 24);
+            this.tsmCategorias.Size = new System.Drawing.Size(75, 20);
             this.tsmCategorias.Text = "Categorias";
             // 
             // pcbxArticulo
             // 
-            this.pcbxArticulo.Location = new System.Drawing.Point(957, 124);
+            this.pcbxArticulo.Location = new System.Drawing.Point(718, 101);
+            this.pcbxArticulo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pcbxArticulo.Name = "pcbxArticulo";
-            this.pcbxArticulo.Size = new System.Drawing.Size(228, 228);
+            this.pcbxArticulo.Size = new System.Drawing.Size(171, 185);
             this.pcbxArticulo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcbxArticulo.TabIndex = 6;
             this.pcbxArticulo.TabStop = false;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1220, 446);
+            this.ClientSize = new System.Drawing.Size(915, 362);
             this.Controls.Add(this.pcbxArticulo);
             this.Controls.Add(this.dgvArticulos);
             this.Controls.Add(this.btnDetalle);
@@ -160,6 +169,7 @@
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Catalogo";

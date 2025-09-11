@@ -15,9 +15,18 @@ namespace Actividad2CatalogoApp
 {
     public partial class frmAgregarArticulo : Form
     {
+        private Articulo Articulo = null;
         public frmAgregarArticulo()
         {
             InitializeComponent();
+            Text = "Agregar Articulo";
+        }
+
+        public frmAgregarArticulo(Articulo articulo)
+        {
+            InitializeComponent();
+            this.Articulo = articulo;
+            Text = "Modificar Articulo";
         }
 
         private void frmAgregarArticulo_Load(object sender, EventArgs e)
@@ -47,6 +56,9 @@ namespace Actividad2CatalogoApp
             ArticuloNegocio negocio = new ArticuloNegocio();
             try
             {
+                if (Articulo == null)
+                    Articulo = new Articulo();
+                
                 nuevo.Codigo = tbxCodigo.Text;
                 nuevo.Nombre = tbxNombre.Text;
                 nuevo.Descripcion = tbxDescription.Text;
@@ -61,9 +73,18 @@ namespace Actividad2CatalogoApp
 
                 nuevo.Categoria.Id = categoriaSeleccionada.Id;
 
-                negocio.agregar(nuevo);
-                MessageBox.Show("Agregado exitosamente");
-                Close();
+                if(Articulo.Id != 0)
+                {
+                    negocio.modificar(Articulo);
+                    MessageBox.Show("Modificado Exitosamente");
+                }
+                else
+                {
+                    negocio.agregar(nuevo);
+                    MessageBox.Show("Agregado exitosamente");
+                }
+                    Close();
+
             }
             catch (Exception ex)
             {
