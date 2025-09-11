@@ -61,6 +61,7 @@
             this.btnEliminar.TabIndex = 1;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnModificar
             // 
@@ -83,7 +84,7 @@
             // 
             // btnDetalle
             // 
-            this.btnDetalle.Location = new System.Drawing.Point(676, 378);
+            this.btnDetalle.Location = new System.Drawing.Point(1022, 378);
             this.btnDetalle.Name = "btnDetalle";
             this.btnDetalle.Size = new System.Drawing.Size(105, 30);
             this.btnDetalle.TabIndex = 4;
@@ -93,11 +94,14 @@
             // dgvArticulos
             // 
             this.dgvArticulos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvArticulos.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvArticulos.Location = new System.Drawing.Point(48, 124);
+            this.dgvArticulos.MultiSelect = false;
             this.dgvArticulos.Name = "dgvArticulos";
             this.dgvArticulos.RowHeadersWidth = 51;
             this.dgvArticulos.RowTemplate.Height = 24;
-            this.dgvArticulos.Size = new System.Drawing.Size(514, 228);
+            this.dgvArticulos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvArticulos.Size = new System.Drawing.Size(880, 228);
             this.dgvArticulos.TabIndex = 5;
             this.dgvArticulos.SelectionChanged += new System.EventHandler(this.dgvArticulos_SelectionChanged);
             // 
@@ -110,7 +114,7 @@
             this.tsmCategorias});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(875, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1220, 28);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -135,7 +139,7 @@
             // 
             // pcbxArticulo
             // 
-            this.pcbxArticulo.Location = new System.Drawing.Point(611, 124);
+            this.pcbxArticulo.Location = new System.Drawing.Point(957, 124);
             this.pcbxArticulo.Name = "pcbxArticulo";
             this.pcbxArticulo.Size = new System.Drawing.Size(228, 228);
             this.pcbxArticulo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -146,7 +150,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(875, 446);
+            this.ClientSize = new System.Drawing.Size(1220, 446);
             this.Controls.Add(this.pcbxArticulo);
             this.Controls.Add(this.dgvArticulos);
             this.Controls.Add(this.btnDetalle);

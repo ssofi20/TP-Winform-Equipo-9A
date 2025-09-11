@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using dominio;
@@ -48,6 +49,24 @@ namespace negocio
             {
                 datos.setearConsulta("INSERT INTO MARCAS (Descripcion) VALUES (@descripcion)");
                 datos.setearParametro("@descripcion", marca.Descripcion);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void eliminar(int id)
+        {
+            try
+            {
+                datos.setearConsulta("DELETE FROM MARCAS WHERE Id = @id");
+                datos.setearParametro("@id", id);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)

@@ -266,6 +266,7 @@
             this.Controls.Add(this.lblNombre);
             this.Controls.Add(this.lblCodigo);
             this.Name = "frmAgregarArticulo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmAgregarArticulo";
             this.Load += new System.EventHandler(this.frmAgregarArticulo_Load);
             this.menuStrip1.ResumeLayout(false);

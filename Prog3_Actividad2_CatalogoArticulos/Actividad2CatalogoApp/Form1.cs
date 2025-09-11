@@ -21,14 +21,25 @@ namespace Actividad2CatalogoApp
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void cargar()
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
-            listaArticulo = negocio.listar();
-            dgvArticulos.DataSource = listaArticulo;
-            cargarImagen(listaArticulo[0].Imagenes[0].Url);
+            try
+            {
+                listaArticulo = negocio.listar();
+                dgvArticulos.DataSource = listaArticulo;
+                dgvArticulos.Columns["Id"].Visible = false;
+                cargarImagen(listaArticulo[0].Imagenes[0].Url);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
 
-
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            cargar();
         }
 
         private void cargarImagen(string imagen)
@@ -47,7 +58,10 @@ namespace Actividad2CatalogoApp
         private void dgvArticulos_SelectionChanged(object sender, EventArgs e)
         {
             Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
-            cargarImagen(seleccionado.Imagenes[0].Url);
+            if(seleccionado.Imagenes != null && seleccionado.Imagenes.Count > 0)
+                cargarImagen(seleccionado.Imagenes[0].Url);
+            else 
+                pcbxArticulo.Load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ432ju-gdS2nl6CEobTaFXEe6_gRmK5DkWuQ&s");
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -60,6 +74,27 @@ namespace Actividad2CatalogoApp
         {
             FromMarcas marcas = new FromMarcas();
             marcas.ShowDialog();
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            ArticuloNegocio negocio = new ArticuloNegocio();
+            Articulo seleccionado;
+
+            try
+            {
+                DialogResult respuesta = MessageBox.Show("¿Seguro que desea eliminar el artículo?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (respuesta == DialogResult.Yes)
+                {
+                    seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                    negocio.eliminar(seleccionado.Id);
+                    cargar();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }
