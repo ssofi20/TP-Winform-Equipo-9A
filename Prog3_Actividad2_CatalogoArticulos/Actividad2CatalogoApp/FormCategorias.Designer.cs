@@ -40,16 +40,19 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridView1.Location = new System.Drawing.Point(143, 117);
+            this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(514, 228);
             this.dataGridView1.TabIndex = 10;
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(143, 371);
+            this.btnAgregar.Location = new System.Drawing.Point(189, 371);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(105, 30);
             this.btnAgregar.TabIndex = 9;
@@ -58,7 +61,7 @@
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(303, 371);
+            this.btnModificar.Location = new System.Drawing.Point(349, 371);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(105, 30);
             this.btnModificar.TabIndex = 8;
@@ -67,7 +70,7 @@
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(457, 371);
+            this.btnEliminar.Location = new System.Drawing.Point(503, 371);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(105, 30);
             this.btnEliminar.TabIndex = 7;
