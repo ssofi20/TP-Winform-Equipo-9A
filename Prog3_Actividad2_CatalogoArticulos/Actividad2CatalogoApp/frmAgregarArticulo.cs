@@ -57,10 +57,16 @@ namespace Actividad2CatalogoApp
                 Marca marcaSeleccionada = (Marca)cbxMarca.SelectedItem;
                 Categoria categoriaSeleccionada = (Categoria)cbxCategoria.SelectedItem;
 
+                nuevo.Imagenes = new List<Imagen>();
+                Imagen img = new Imagen();
+                img.Url = txtUrlImagen.Text;
+                nuevo.Imagenes.Add(img);
+
                 nuevo.Marca.Id = marcaSeleccionada.Id;
 
                 nuevo.Categoria.Id = categoriaSeleccionada.Id;
 
+                
                 negocio.agregar(nuevo);
                 MessageBox.Show("Agregado exitosamente");
                 Close();
@@ -71,6 +77,27 @@ namespace Actividad2CatalogoApp
             }
         }
 
-     
+        private void txtUrlImagen_Leave(object sender, EventArgs e)
+        {
+            cargarImg(txtUrlImagen.Text);
+        }
+
+        private void cargarImg(string imagen)
+        {
+            try
+                {
+                pcbxImgNuevoArt.Load(imagen);
+                }
+            catch (Exception ex)
+                {
+                pcbxImgNuevoArt.Load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ432ju-gdS2nl6CEobTaFXEe6_gRmK5DkWuQ&s");
+                }
+        }
+
+        private void btnMasImagenes_Click(object sender, EventArgs e)
+        {
+            frmAgregarImagen nuevaImg = new frmAgregarImagen();
+            nuevaImg.ShowDialog();    
+        }
     }
-}
+}  
