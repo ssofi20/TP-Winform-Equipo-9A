@@ -15,7 +15,7 @@ namespace Actividad2CatalogoApp
 {
     public partial class FormCategorias : Form
     {
-        List<Categoria> listaCategorias = new List<Categoria>();
+        List<Categoria> listaCategorias;
         public FormCategorias()
         {
             InitializeComponent();
