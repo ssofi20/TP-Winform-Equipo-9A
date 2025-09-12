@@ -11,10 +11,8 @@ namespace negocio
 {
     public class CategoriaNegocio
     {
-        public int Id { get; set; }
-        public string Descripcion { get; set; }
+        AccesoDatos datos = new AccesoDatos();
 
-       
         public List<Categoria> listar()
         {
             List<Categoria> lista = new List<Categoria>();
@@ -34,6 +32,24 @@ namespace negocio
                     lista.Add(aux);
                 }
                 return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void agregar(Categoria nuevo)
+        {
+            try
+            {
+                datos.setearConsulta("INSERT INTO CATEGORIAS (Descripcion) VALUES (@Descripcion)");
+                datos.setearParametro("@Descripcion", nuevo.Descripcion);
+                datos.ejecutarAccion();
             }
             catch (Exception ex)
             {
