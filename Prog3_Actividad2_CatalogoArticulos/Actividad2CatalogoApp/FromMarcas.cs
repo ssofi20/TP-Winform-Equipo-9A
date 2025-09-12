@@ -81,5 +81,14 @@ namespace Actividad2CatalogoApp
             dgvMarcas.DataSource = null;
             dgvMarcas.DataSource = listaFiltrada;
         }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            Marca marca = new Marca();
+            marca = (Marca)dgvMarcas.CurrentRow.DataBoundItem;
+            frmAgregarMarca modificar = new frmAgregarMarca(marca);
+            modificar.ShowDialog();
+            cargar();
+        }
     }
 }
