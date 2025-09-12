@@ -15,6 +15,7 @@ namespace Actividad2CatalogoApp
 {
     public partial class FormCategorias : Form
     {
+        List<Categoria> listaCategorias = new List<Categoria>();
         public FormCategorias()
         {
             InitializeComponent();
@@ -25,7 +26,6 @@ namespace Actividad2CatalogoApp
             CategoriaNegocio negocio = new CategoriaNegocio();
             try
             {
-                List<Categoria> listaCategorias = new List<Categoria>();
                 listaCategorias = negocio.listar();
                 dgvCategorias.DataSource = listaCategorias;
             }
@@ -86,6 +86,20 @@ namespace Actividad2CatalogoApp
             {
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        private void txtFiltro_TextChanged(object sender, EventArgs e)
+        {
+            List<Categoria> listaFiltrada;
+            string filtro = txtFiltro.Text;
+
+            if (filtro.Length >= 2)
+                listaFiltrada = listaCategorias.FindAll(x => x.Descripcion.ToUpper().Contains(filtro.ToUpper()));
+            else 
+                listaFiltrada = listaCategorias;
+
+            dgvCategorias.DataSource = null;
+            dgvCategorias.DataSource = listaFiltrada;
         }
     }
 }
