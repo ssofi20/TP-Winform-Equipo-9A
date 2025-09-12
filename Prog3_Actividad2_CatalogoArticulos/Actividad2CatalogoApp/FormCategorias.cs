@@ -54,5 +54,14 @@ namespace Actividad2CatalogoApp
             }
 
         }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            Categoria categoria = new Categoria();
+            categoria = (Categoria)dgvCategorias.CurrentRow.DataBoundItem;
+            frmAgregarCategoria modificar = new frmAgregarCategoria(categoria);
+            modificar.ShowDialog();
+            cargar();
+        }
     }
 }
