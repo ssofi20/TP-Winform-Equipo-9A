@@ -15,7 +15,7 @@ namespace Actividad2CatalogoApp
 {
     public partial class frmAgregarArticulo : Form
     {
-        private Articulo Articulo = null;
+        private Articulo articulo = null;
         public frmAgregarArticulo()
         {
             InitializeComponent();
@@ -25,7 +25,7 @@ namespace Actividad2CatalogoApp
         public frmAgregarArticulo(Articulo articulo)
         {
             InitializeComponent();
-            this.Articulo = articulo;
+            this.articulo = articulo;
             Text = "Modificar Articulo";
         }
 
@@ -52,39 +52,35 @@ namespace Actividad2CatalogoApp
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            Articulo nuevo = new Articulo();
             ArticuloNegocio negocio = new ArticuloNegocio();
+
             try
             {
-                if (Articulo == null)
-                    Articulo = new Articulo();
-                
-                nuevo.Codigo = tbxCodigo.Text;
-                nuevo.Nombre = tbxNombre.Text;
-                nuevo.Descripcion = tbxDescription.Text;
-                nuevo.Marca = (Marca)cbxMarca.SelectedItem;
-                nuevo.Categoria = (Categoria)cbxCategoria.SelectedItem;
-                nuevo.Precio = decimal.Parse(txtPrecio.Text);
+                // Si es alta, creo un artículo nuevo
+                if (articulo == null)
+                    articulo = new Articulo();
 
-                Marca marcaSeleccionada = (Marca)cbxMarca.SelectedItem;
-                Categoria categoriaSeleccionada = (Categoria)cbxCategoria.SelectedItem;
+                // Cargo todos los datos en el mismo objeto
+                articulo.Codigo = tbxCodigo.Text;
+                articulo.Nombre = tbxNombre.Text;
+                articulo.Descripcion = tbxDescription.Text;
+                articulo.Marca = (Marca)cbxMarca.SelectedItem;
+                articulo.Categoria = (Categoria)cbxCategoria.SelectedItem;
+                articulo.Precio = decimal.Parse(txtPrecio.Text);
 
-                nuevo.Marca.Id = marcaSeleccionada.Id;
-
-                nuevo.Categoria.Id = categoriaSeleccionada.Id;
-
-                if(Articulo.Id != 0)
+                // Si ya tiene Id, es modificación
+                if (articulo.Id != 0)
                 {
-                    negocio.modificar(Articulo);
-                    MessageBox.Show("Modificado Exitosamente");
+                    negocio.modificar(articulo);
+                    MessageBox.Show("Modificado exitosamente");
                 }
-                else
+                else // Si no tiene Id, es alta
                 {
-                    negocio.agregar(nuevo);
+                    negocio.agregar(articulo);
                     MessageBox.Show("Agregado exitosamente");
                 }
-                    Close();
 
+                Close();
             }
             catch (Exception ex)
             {

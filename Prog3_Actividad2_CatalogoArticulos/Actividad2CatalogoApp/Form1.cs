@@ -68,6 +68,7 @@ namespace Actividad2CatalogoApp
         {
             frmAgregarArticulo alta = new frmAgregarArticulo();
             alta.ShowDialog();
+            cargar();
         }
 
         private void tsmMarcas_Click(object sender, EventArgs e)
