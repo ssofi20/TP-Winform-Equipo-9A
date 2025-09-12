@@ -63,5 +63,29 @@ namespace Actividad2CatalogoApp
             modificar.ShowDialog();
             cargar();
         }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            Categoria categoria = new Categoria();
+            CategoriaNegocio negocio = new CategoriaNegocio();
+
+            try
+            {
+                if (dgvCategorias.CurrentRow != null)
+                {
+                    categoria = (Categoria)dgvCategorias.CurrentRow.DataBoundItem;
+                    DialogResult respuesta = MessageBox.Show("¿Está seguro que desea eliminar la categoría " + categoria.Descripcion + "?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (respuesta == DialogResult.Yes)
+                    {
+                        negocio.eliminar(categoria.Id);
+                        cargar();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
     }
 }
