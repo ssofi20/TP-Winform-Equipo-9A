@@ -94,10 +94,33 @@ namespace Actividad2CatalogoApp
                 }
         }
 
-        private void btnMasImagenes_Click(object sender, EventArgs e)
+        private void btnMasImg_Click(object sender, EventArgs e)
         {
-            frmAgregarImagen nuevaImg = new frmAgregarImagen();
-            nuevaImg.ShowDialog();    
+
+            ImagenNegocio negocio = new ImagenNegocio();
+            Articulo art = new Articulo();
+
+            int lastId = 0;
+
+            try
+            {
+                lastId = negocio.ultimoId();
+
+                art.Imagenes = new List<Imagen>();
+                Imagen img = new Imagen();
+                img.ArticuloId = lastId + 1;
+                img.Url = txtUrlImagen.Text;
+                art.Imagenes.Add(img);
+
+                negocio.agregar(img);
+                MessageBox.Show("Agregado exitosamente");
+                txtUrlImagen.Clear();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }   
         }
     }
 }  

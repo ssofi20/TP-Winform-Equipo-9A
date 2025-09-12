@@ -17,7 +17,7 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("Insert into IMAGENES (ImagenUrl, IdArticulo) SELECT '" + nuevo.Url + "','" + nuevo.Id + "'");
+                datos.setearConsulta("Insert into IMAGENES (ImagenUrl, IdArticulo) values ('" + nuevo.Url + "','" + nuevo.ArticuloId + "')");
                 datos.ejecutarAccion();
 
             }
@@ -29,7 +29,34 @@ namespace negocio
             {
                 datos.cerrarConexion();
             }
-
         }
+
+        public int ultimoId()
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT MAX(Id) FROM ARTICULOS");
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    return datos.Lector.GetInt32(0); 
+                }else
+                {
+                    return 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+            
     }
 }
