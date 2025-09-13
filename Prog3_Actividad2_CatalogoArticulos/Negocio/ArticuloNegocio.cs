@@ -18,7 +18,7 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.Precio, M.Id MarcaId, M.Descripcion NombreMarca, C.Id CategoriaId, C.Descripcion NombreCategoria, I.Id ImagenId, I.ImagenUrl\r\nFROM ARTICULOS A \r\nINNER JOIN MARCAS M ON A.IdMarca = M.Id\r\nINNER JOIN CATEGORIAS C ON A.IdCategoria = C.Id\r\nLEFT JOIN IMAGENES I ON A.Id = I.IdArticulo;");
+                datos.setearConsulta("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, M.Id AS IdMarca, M.Descripcion AS Marca, C.Id AS IdCategoria, C.Descripcion AS Categoria, A.Precio, (SELECT TOP 1 I.ImagenUrl FROM IMAGENES I WHERE I.IdArticulo = A.Id ORDER BY I.Id) AS ImagenPrimera FROM ARTICULOS A LEFT JOIN MARCAS M ON M.Id = A.IdMarca LEFT JOIN CATEGORIAS C ON C.Id = A.IdCategoria");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -30,23 +30,21 @@ namespace negocio
                     aux.Descripcion = (string)datos.Lector["Descripcion"];
                     aux.Precio = (decimal)datos.Lector["Precio"];
 
-                    if (!(datos.Lector["ImagenUrl"] is DBNull))
-                    {
-                        aux.Imagenes = new List<Imagen>();
-                        Imagen img = new Imagen();
-                        img.Id = (int)datos.Lector["ImagenId"];
-                        img.Url = (string)datos.Lector["ImagenUrl"];
-                        img.ArticuloId = aux.Id;
-                        aux.Imagenes.Add(img);
-                    }
-
                     aux.Marca = new Marca();
-                    aux.Marca.Id = (int)datos.Lector["MarcaId"];
-                    aux.Marca.Descripcion = (string)datos.Lector["NombreMarca"];
+                    aux.Marca.Id = (int)datos.Lector["IdMarca"];
+                    aux.Marca.Descripcion = (string)datos.Lector["Marca"];
 
                     aux.Categoria = new Categoria();
-                    aux.Categoria.Id = (int)datos.Lector["CategoriaId"];
-                    aux.Categoria.Descripcion = (string)datos.Lector["NombreCategoria"];
+                    aux.Categoria.Id = (int)datos.Lector["IdCategoria"];
+                    aux.Categoria.Descripcion = (string)datos.Lector["Categoria"];
+
+                    if (!(datos.Lector["ImagenPrimera"] is DBNull))
+                    {
+                        Imagen img = new Imagen();
+                        img.Url = (string)datos.Lector["ImagenPrimera"];
+                        aux.Imagenes = new List<Imagen>();
+                        aux.Imagenes.Add(img);
+                    }
 
                     lista.Add(aux);
                 }
