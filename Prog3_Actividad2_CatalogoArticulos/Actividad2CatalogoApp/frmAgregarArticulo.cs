@@ -66,8 +66,15 @@ namespace Actividad2CatalogoApp
                     cbxMarca.SelectedValue = articulo.Marca.Id;
                     cbxCategoria.SelectedValue = articulo.Categoria.Id;
                     listaImagenes = articulo.Imagenes;
-                    txtUrlImagen.Text = articulo.Imagenes[0].Url;
-                    cargarImagen(articulo.Imagenes[0].Url);
+                    if(listaImagenes != null)
+                    {
+                        txtUrlImagen.Text = articulo.Imagenes[0].Url;
+                        cargarImagen(articulo.Imagenes[0].Url);
+                    }
+                    else
+                    {
+                        cargarImagen("https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg");
+                    }
                 }
             }
             catch (Exception ex)
@@ -129,11 +136,16 @@ namespace Actividad2CatalogoApp
         private void btnAgregarImagen_Click(object sender, EventArgs e)
         {
             string url = txtUrlImagen.Text;
-            if(!string.IsNullOrWhiteSpace(url))
+            if(txtUrlImagen.Text != null || txtUrlImagen.Text != "")
             {
                 Imagen img = new Imagen();
                 img.Url = url;
-                listaImagenes.Add(img);
+                img.ArticuloId = articulo.Id;
+
+                if(articulo.Imagenes == null)
+                    articulo.Imagenes = new List<Imagen>();
+
+                articulo.Imagenes.Add(img);
                 cargarImagen(url);
                 txtUrlImagen.Clear();
                 MessageBox.Show("Imagen agregada");
