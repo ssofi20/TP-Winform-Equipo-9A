@@ -11,7 +11,6 @@ namespace negocio
     public class ArticuloNegocio
     {
         private AccesoDatos datos = new AccesoDatos();
-
         public List<Articulo> listar()
         {
             List<Articulo> lista = new List<Articulo>();
@@ -57,15 +56,30 @@ namespace negocio
             return lista;
         }
 
-        public void agregar(Articulo nuevo)
+        public int agregar(Articulo nuevo)
         {
-            AccesoDatos datos = new AccesoDatos();
-
             try
             {
-                datos.setearConsulta("Insert into ARTICULOS (Codigo, Nombre, Descripcion, IdMarca,IdCategoria, Precio) values ('" + nuevo.Codigo + "', '" + nuevo.Nombre + "','" + nuevo.Descripcion + "', '" + nuevo.Marca.Id + "', '" + nuevo.Categoria.Id + "', '"+ nuevo.Precio+"')");
-                datos.ejecutarAccion();
+                datos.setearConsulta("INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio) VALUES (@Codigo, @Nombre, @Descripcion, @IdMarca, @IdCategoria, @Precio)");
+                datos.setearParametro("@Codigo", nuevo.Codigo);
+                datos.setearParametro("@Nombre", nuevo.Nombre);
+                datos.setearParametro("@Descripcion", nuevo.Descripcion);
+                datos.setearParametro("@IdMarca", nuevo.Marca.Id);
+                datos.setearParametro("@IdCategoria", nuevo.Categoria.Id);
+                datos.setearParametro("@Precio", nuevo.Precio);
 
+                datos.ejecutarAccion();
+                datos.cerrarConexion();
+
+                //Consultar el Id del artículo recién agregado para agregar las imágenes
+                datos = new AccesoDatos();
+                datos.setearConsulta("SELECT Id FROM ARTICULOS WHERE Codigo = @Codigo");
+                datos.setearParametro("@Codigo", nuevo.Codigo);
+                datos.ejecutarLectura();
+                datos.Lector.Read();
+                int idArticulo = (int)datos.Lector["Id"];
+
+                return idArticulo;
             }
             catch (Exception ex)
             {
@@ -75,7 +89,26 @@ namespace negocio
             {
                 datos.cerrarConexion();
             }
+        }
 
+        public void agregarImagen(Imagen img)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("INSERT INTO IMAGENES (IdArticulo, ImagenUrl) VALUES (@IdArticulo, @ImagenUrl)");
+                datos.setearParametro("@IdArticulo", img.ArticuloId);
+                datos.setearParametro("@ImagenUrl", img.Url);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
 
         public void eliminar(int id)

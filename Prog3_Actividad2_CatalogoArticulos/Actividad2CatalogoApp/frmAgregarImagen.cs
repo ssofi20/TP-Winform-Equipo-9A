@@ -14,8 +14,9 @@ namespace Actividad2CatalogoApp
     public partial class frmAgregarImagen : Form
     {
         public List<Imagen> imagenes;
-        public frmAgregarImagen()
+        public frmAgregarImagen(List<Imagen> lista)
         {
+            this.imagenes = lista;
             InitializeComponent();
         }
         
@@ -26,12 +27,12 @@ namespace Actividad2CatalogoApp
                 Imagen nuevaImagen = new Imagen();
                 nuevaImagen.Url = txtUrlImagen.Text;
                 imagenes.Add(nuevaImagen);
-                MessageBox.Show("Imagen agregada: " + txtUrlImagen.Text);
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
             else
             {
                 MessageBox.Show("Por favor, ingrese una URL válida.");
-                txtUrlImagen.Clear();
             }
         }
 
@@ -49,6 +50,7 @@ namespace Actividad2CatalogoApp
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
     }

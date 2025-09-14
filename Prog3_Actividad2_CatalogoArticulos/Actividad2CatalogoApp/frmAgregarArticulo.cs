@@ -46,6 +46,7 @@ namespace Actividad2CatalogoApp
         {
             Articulo nuevo = new Articulo();
             ArticuloNegocio negocio = new ArticuloNegocio();
+         
             try
             {
                 nuevo.Codigo = tbxCodigo.Text;
@@ -62,7 +63,13 @@ namespace Actividad2CatalogoApp
 
                 nuevo.Categoria.Id = categoriaSeleccionada.Id;
 
-                negocio.agregar(nuevo);
+                int idArticulo = negocio.agregar(nuevo);
+                foreach (Imagen img in listaImagenes)
+                {
+                    img.ArticuloId = idArticulo;
+                    negocio.agregarImagen(img);
+                }
+
                 MessageBox.Show("Agregado exitosamente");
                 Close();
             }
@@ -75,7 +82,11 @@ namespace Actividad2CatalogoApp
         private void btnAgregarImagen_Click(object sender, EventArgs e)
         {
             frmAgregarImagen agregarImagen = new frmAgregarImagen(listaImagenes);
-            agregarImagen.ShowDialog();
+            
+            if(agregarImagen.ShowDialog() == DialogResult.OK)
+            {
+                listaImagenes = agregarImagen.imagenes;
+            }
         }
     }
 }
