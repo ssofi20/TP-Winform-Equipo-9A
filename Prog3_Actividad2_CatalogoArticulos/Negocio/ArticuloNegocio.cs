@@ -107,13 +107,17 @@ namespace negocio
 
                 datos.cerrarConexion();
                 datos = new AccesoDatos();
+                datos.setearConsulta("DELETE FROM IMAGENES WHERE IdArticulos = @Id");
+                datos.setearParametro("@Id", articulo.Id);
+                datos.ejecutarAccion();
+
+                datos.cerrarConexion();
+
+                datos = new AccesoDatos(); 
 
                 foreach (Imagen img in articulo.Imagenes)
                 {
-                    if (img.Id == 0) // Nueva imagen
-                    {
                         agregarImagen(img);
-                    }
                 }
 
             }
