@@ -52,7 +52,6 @@ namespace Actividad2CatalogoApp
             {
                 pcbxArticulo.Load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ432ju-gdS2nl6CEobTaFXEe6_gRmK5DkWuQ&s");
             }
-
         }
 
         private void dgvArticulos_SelectionChanged(object sender, EventArgs e)

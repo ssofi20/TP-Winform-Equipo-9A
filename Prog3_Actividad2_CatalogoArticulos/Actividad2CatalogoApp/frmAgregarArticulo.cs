@@ -29,6 +29,17 @@ namespace Actividad2CatalogoApp
             this.articulo = articulo;
             Text = "Modificar Articulo";
         }
+        private void cargarImagen(string imagen)
+        {
+            try
+            {
+                pbxImagenArticulo.Load(imagen);
+            }
+            catch (Exception)
+            {
+                pbxImagenArticulo.Load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ432ju-gdS2nl6CEobTaFXEe6_gRmK5DkWuQ&s");
+            }
+        }
 
         private void frmAgregarArticulo_Load(object sender, EventArgs e)
         {
@@ -55,6 +66,8 @@ namespace Actividad2CatalogoApp
                     cbxMarca.SelectedValue = articulo.Marca.Id;
                     cbxCategoria.SelectedValue = articulo.Categoria.Id;
                     listaImagenes = articulo.Imagenes;
+                    txtUrlImagen.Text = articulo.Imagenes[0].Url;
+                    cargarImagen(articulo.Imagenes[0].Url);
                 }
             }
             catch (Exception ex)
@@ -92,8 +105,7 @@ namespace Actividad2CatalogoApp
 
                 if(articulo.Id != 0)
                 {
-                    //negocio.modificar(articulo);
-                    //negocio.eliminarImagenes(articulo.Id);
+                    negocio.modificar(articulo);
                     MessageBox.Show("Modificado exitosamente");
                 }
                 else
@@ -116,11 +128,60 @@ namespace Actividad2CatalogoApp
 
         private void btnAgregarImagen_Click(object sender, EventArgs e)
         {
-            frmAgregarImagen agregarImagen = new frmAgregarImagen(listaImagenes);
-            
-            if(agregarImagen.ShowDialog() == DialogResult.OK)
+            string url = txtUrlImagen.Text;
+            if(!string.IsNullOrWhiteSpace(url))
             {
-                listaImagenes = agregarImagen.imagenes;
+                Imagen img = new Imagen();
+                img.Url = url;
+                listaImagenes.Add(img);
+                cargarImagen(url);
+                txtUrlImagen.Clear();
+                MessageBox.Show("Imagen agregada");
+            }
+            else
+            {
+                MessageBox.Show("Ingrese una URL valida");
+            }
+        }
+
+        private void txtUrlImagen_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (txtUrlImagen.Text != null || txtUrlImagen.Text != "")
+                    cargarImagen(txtUrlImagen.Text);
+                else
+                    pbxImagenArticulo.Load("https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void btnEliminarImagen_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Imagen imagenEliminar = listaImagenes.Find(i => i.Url == txtUrlImagen.Text);
+                if(imagenEliminar != null)
+                {
+                    DialogResult dialogResult = MessageBox.Show("¿Está seguro que desea eliminar la imagen?", "Eliminar Imagen", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.No)
+                        return;
+
+                    listaImagenes.Remove(imagenEliminar);
+                    MessageBox.Show("Imagen eliminada de la lista. Se eliminará al guardar.");
+                    txtUrlImagen.Clear();
+                }
+                else
+                {
+                    MessageBox.Show("La imagen no se encuentra en la lista.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
     }
