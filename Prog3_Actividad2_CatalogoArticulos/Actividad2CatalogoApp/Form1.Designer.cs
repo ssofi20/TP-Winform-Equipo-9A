@@ -136,6 +136,7 @@
             this.tsmCategorias.Name = "tsmCategorias";
             this.tsmCategorias.Size = new System.Drawing.Size(94, 24);
             this.tsmCategorias.Text = "Categorias";
+            this.tsmCategorias.Click += new System.EventHandler(this.tsmCategorias_Click);
             // 
             // pcbxArticulo
             // 

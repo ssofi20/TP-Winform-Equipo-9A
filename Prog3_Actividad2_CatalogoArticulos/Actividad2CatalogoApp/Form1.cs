@@ -96,5 +96,12 @@ namespace Actividad2CatalogoApp
                 MessageBox.Show(ex.ToString());
             }
         }
+
+        private void tsmCategorias_Click(object sender, EventArgs e)
+        {
+            FormCategorias categorias = new FormCategorias();
+            categorias.ShowDialog();
+
+        }
     }
 }

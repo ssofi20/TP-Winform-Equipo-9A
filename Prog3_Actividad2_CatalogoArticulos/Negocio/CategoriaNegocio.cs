@@ -11,10 +11,8 @@ namespace negocio
 {
     public class CategoriaNegocio
     {
-        public int Id { get; set; }
-        public string Descripcion { get; set; }
+        AccesoDatos datos = new AccesoDatos();
 
-       
         public List<Categoria> listar()
         {
             List<Categoria> lista = new List<Categoria>();
@@ -34,6 +32,61 @@ namespace negocio
                     lista.Add(aux);
                 }
                 return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void agregar(Categoria nuevo)
+        {
+            try
+            {
+                datos.setearConsulta("INSERT INTO CATEGORIAS (Descripcion) VALUES (@Descripcion)");
+                datos.setearParametro("@Descripcion", nuevo.Descripcion);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void modificar(Categoria categoria)
+        {
+            try
+            {
+                datos.setearConsulta("UPDATE CATEGORIAS SET Descripcion = @Descripcion WHERE Id = @Id");
+                datos.setearParametro("@Descripcion", categoria.Descripcion);
+                datos.setearParametro("@Id", categoria.Id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void eliminar(int id)
+        {
+            try
+            {
+                datos.setearConsulta("DELETE FROM CATEGORIAS WHERE Id = @Id");
+                datos.setearParametro("@Id", id);
+                datos.ejecutarAccion();
             }
             catch (Exception ex)
             {

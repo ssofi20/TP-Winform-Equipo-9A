@@ -14,6 +14,7 @@ namespace Actividad2CatalogoApp
 {
     public partial class FromMarcas : Form
     {
+        private List<Marca> listaMarcas;
         public FromMarcas()
         {
             InitializeComponent();
@@ -23,7 +24,8 @@ namespace Actividad2CatalogoApp
             MarcaNegocio marcaNegocio = new MarcaNegocio();
             try
             {
-                dgvMarcas.DataSource = marcaNegocio.listar();
+                listaMarcas = marcaNegocio.listar();
+                dgvMarcas.DataSource = listaMarcas;
             }
             catch (Exception ex)
             {
@@ -64,6 +66,29 @@ namespace Actividad2CatalogoApp
             {
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        private void txtFiltro_TextChanged(object sender, EventArgs e)
+        {
+            List<Marca> listaFiltrada;
+            string filtro = txtFiltro.Text;
+
+            if(filtro.Length >=2)
+                listaFiltrada = listaMarcas.FindAll(x => x.Descripcion.ToUpper().Contains(filtro.ToUpper()));
+            else 
+                listaFiltrada = listaMarcas;
+
+            dgvMarcas.DataSource = null;
+            dgvMarcas.DataSource = listaFiltrada;
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            Marca marca = new Marca();
+            marca = (Marca)dgvMarcas.CurrentRow.DataBoundItem;
+            frmAgregarMarca modificar = new frmAgregarMarca(marca);
+            modificar.ShowDialog();
+            cargar();
         }
     }
 }
