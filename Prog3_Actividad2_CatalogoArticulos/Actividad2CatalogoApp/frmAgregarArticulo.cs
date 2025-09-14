@@ -15,6 +15,7 @@ namespace Actividad2CatalogoApp
 {
     public partial class frmAgregarArticulo : Form
     {
+        private List<Imagen> listaImagenes = new List<Imagen>();
         public frmAgregarArticulo()
         {
             InitializeComponent();
@@ -71,6 +72,10 @@ namespace Actividad2CatalogoApp
             }
         }
 
-     
+        private void btnAgregarImagen_Click(object sender, EventArgs e)
+        {
+            frmAgregarImagen agregarImagen = new frmAgregarImagen(listaImagenes);
+            agregarImagen.ShowDialog();
+        }
     }
 }

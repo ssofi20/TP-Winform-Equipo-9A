@@ -40,20 +40,17 @@
             this.lblDesciption = new System.Windows.Forms.Label();
             this.lblNombre = new System.Windows.Forms.Label();
             this.lblCodigo = new System.Windows.Forms.Label();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.tsmArticulos = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmMarcas = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmCategorias = new System.Windows.Forms.ToolStripMenuItem();
             this.lblPrecio = new System.Windows.Forms.Label();
             this.txtPrecio = new System.Windows.Forms.TextBox();
-            this.menuStrip1.SuspendLayout();
+            this.btnAgregarImagen = new System.Windows.Forms.Button();
+            this.lblUrl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cbxMarca
             // 
             this.cbxMarca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxMarca.FormattingEnabled = true;
-            this.cbxMarca.Location = new System.Drawing.Point(201, 209);
+            this.cbxMarca.Location = new System.Drawing.Point(203, 199);
             this.cbxMarca.Name = "cbxMarca";
             this.cbxMarca.Size = new System.Drawing.Size(170, 24);
             this.cbxMarca.TabIndex = 23;
@@ -62,7 +59,7 @@
             // 
             this.cbxCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxCategoria.FormattingEnabled = true;
-            this.cbxCategoria.Location = new System.Drawing.Point(200, 170);
+            this.cbxCategoria.Location = new System.Drawing.Point(202, 160);
             this.cbxCategoria.Name = "cbxCategoria";
             this.cbxCategoria.Size = new System.Drawing.Size(171, 24);
             this.cbxCategoria.TabIndex = 22;
@@ -70,7 +67,7 @@
             // lblMarca
             // 
             this.lblMarca.AutoSize = true;
-            this.lblMarca.Location = new System.Drawing.Point(105, 212);
+            this.lblMarca.Location = new System.Drawing.Point(107, 202);
             this.lblMarca.Name = "lblMarca";
             this.lblMarca.Size = new System.Drawing.Size(51, 16);
             this.lblMarca.TabIndex = 21;
@@ -79,7 +76,7 @@
             // lblCategoria
             // 
             this.lblCategoria.AutoSize = true;
-            this.lblCategoria.Location = new System.Drawing.Point(105, 178);
+            this.lblCategoria.Location = new System.Drawing.Point(107, 168);
             this.lblCategoria.Name = "lblCategoria";
             this.lblCategoria.Size = new System.Drawing.Size(69, 16);
             this.lblCategoria.TabIndex = 20;
@@ -87,7 +84,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(245, 309);
+            this.btnCancelar.Location = new System.Drawing.Point(245, 323);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(88, 35);
             this.btnCancelar.TabIndex = 19;
@@ -97,7 +94,7 @@
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(117, 309);
+            this.btnAceptar.Location = new System.Drawing.Point(117, 323);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(91, 35);
             this.btnAceptar.TabIndex = 18;
@@ -107,21 +104,21 @@
             // 
             // tbxDescription
             // 
-            this.tbxDescription.Location = new System.Drawing.Point(200, 136);
+            this.tbxDescription.Location = new System.Drawing.Point(201, 123);
             this.tbxDescription.Name = "tbxDescription";
             this.tbxDescription.Size = new System.Drawing.Size(153, 22);
             this.tbxDescription.TabIndex = 17;
             // 
             // tbxNombre
             // 
-            this.tbxNombre.Location = new System.Drawing.Point(200, 102);
+            this.tbxNombre.Location = new System.Drawing.Point(201, 89);
             this.tbxNombre.Name = "tbxNombre";
             this.tbxNombre.Size = new System.Drawing.Size(153, 22);
             this.tbxNombre.TabIndex = 16;
             // 
             // tbxCodigo
             // 
-            this.tbxCodigo.Location = new System.Drawing.Point(200, 71);
+            this.tbxCodigo.Location = new System.Drawing.Point(201, 58);
             this.tbxCodigo.Name = "tbxCodigo";
             this.tbxCodigo.Size = new System.Drawing.Size(153, 22);
             this.tbxCodigo.TabIndex = 15;
@@ -129,7 +126,7 @@
             // lblDesciption
             // 
             this.lblDesciption.AutoSize = true;
-            this.lblDesciption.Location = new System.Drawing.Point(105, 142);
+            this.lblDesciption.Location = new System.Drawing.Point(106, 129);
             this.lblDesciption.Name = "lblDesciption";
             this.lblDesciption.Size = new System.Drawing.Size(82, 16);
             this.lblDesciption.TabIndex = 14;
@@ -138,7 +135,7 @@
             // lblNombre
             // 
             this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(105, 108);
+            this.lblNombre.Location = new System.Drawing.Point(106, 95);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(62, 16);
             this.lblNombre.TabIndex = 13;
@@ -147,47 +144,16 @@
             // lblCodigo
             // 
             this.lblCodigo.AutoSize = true;
-            this.lblCodigo.Location = new System.Drawing.Point(105, 77);
+            this.lblCodigo.Location = new System.Drawing.Point(106, 64);
             this.lblCodigo.Name = "lblCodigo";
             this.lblCodigo.Size = new System.Drawing.Size(54, 16);
             this.lblCodigo.TabIndex = 12;
             this.lblCodigo.Text = "Código:";
             // 
-            // menuStrip1
-            // 
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmArticulos,
-            this.tsmMarcas,
-            this.tsmCategorias});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(472, 28);
-            this.menuStrip1.TabIndex = 24;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // tsmArticulos
-            // 
-            this.tsmArticulos.Name = "tsmArticulos";
-            this.tsmArticulos.Size = new System.Drawing.Size(81, 24);
-            this.tsmArticulos.Text = "Articulos";
-            // 
-            // tsmMarcas
-            // 
-            this.tsmMarcas.Name = "tsmMarcas";
-            this.tsmMarcas.Size = new System.Drawing.Size(70, 24);
-            this.tsmMarcas.Text = "Marcas";
-            // 
-            // tsmCategorias
-            // 
-            this.tsmCategorias.Name = "tsmCategorias";
-            this.tsmCategorias.Size = new System.Drawing.Size(94, 24);
-            this.tsmCategorias.Text = "Categorias";
-            // 
             // lblPrecio
             // 
             this.lblPrecio.AutoSize = true;
-            this.lblPrecio.Location = new System.Drawing.Point(105, 243);
+            this.lblPrecio.Location = new System.Drawing.Point(107, 239);
             this.lblPrecio.Name = "lblPrecio";
             this.lblPrecio.Size = new System.Drawing.Size(49, 16);
             this.lblPrecio.TabIndex = 25;
@@ -195,19 +161,39 @@
             // 
             // txtPrecio
             // 
-            this.txtPrecio.Location = new System.Drawing.Point(201, 243);
+            this.txtPrecio.Location = new System.Drawing.Point(203, 233);
             this.txtPrecio.Name = "txtPrecio";
             this.txtPrecio.Size = new System.Drawing.Size(152, 22);
             this.txtPrecio.TabIndex = 26;
+            // 
+            // btnAgregarImagen
+            // 
+            this.btnAgregarImagen.Location = new System.Drawing.Point(201, 267);
+            this.btnAgregarImagen.Name = "btnAgregarImagen";
+            this.btnAgregarImagen.Size = new System.Drawing.Size(152, 27);
+            this.btnAgregarImagen.TabIndex = 27;
+            this.btnAgregarImagen.Text = "Agregar Imagen";
+            this.btnAgregarImagen.UseVisualStyleBackColor = true;
+            this.btnAgregarImagen.Click += new System.EventHandler(this.btnAgregarImagen_Click);
+            // 
+            // lblUrl
+            // 
+            this.lblUrl.AutoSize = true;
+            this.lblUrl.Location = new System.Drawing.Point(107, 272);
+            this.lblUrl.Name = "lblUrl";
+            this.lblUrl.Size = new System.Drawing.Size(75, 16);
+            this.lblUrl.TabIndex = 28;
+            this.lblUrl.Text = "Url Imagen:";
             // 
             // frmAgregarArticulo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(472, 404);
+            this.Controls.Add(this.lblUrl);
+            this.Controls.Add(this.btnAgregarImagen);
             this.Controls.Add(this.txtPrecio);
             this.Controls.Add(this.lblPrecio);
-            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.cbxMarca);
             this.Controls.Add(this.cbxCategoria);
             this.Controls.Add(this.lblMarca);
@@ -224,8 +210,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmAgregarArticulo";
             this.Load += new System.EventHandler(this.frmAgregarArticulo_Load);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -245,11 +229,9 @@
         private System.Windows.Forms.Label lblDesciption;
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.Label lblCodigo;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem tsmArticulos;
-        private System.Windows.Forms.ToolStripMenuItem tsmMarcas;
-        private System.Windows.Forms.ToolStripMenuItem tsmCategorias;
         private System.Windows.Forms.Label lblPrecio;
         private System.Windows.Forms.TextBox txtPrecio;
+        private System.Windows.Forms.Button btnAgregarImagen;
+        private System.Windows.Forms.Label lblUrl;
     }
 }
