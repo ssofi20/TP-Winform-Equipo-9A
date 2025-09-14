@@ -151,7 +151,7 @@ namespace negocio
         {
             try
             {
-                datos.setearConsulta("Delete from ARTICULOS where Id = @id");
+                datos.setearConsulta("DELETE FROM ARTICULOS Where Id = @id; DELETE FROM IMAGENES WHERE IdArticulo = @id");
                 datos.setearParametro("@id", id);
 
                 datos.ejecutarAccion();
