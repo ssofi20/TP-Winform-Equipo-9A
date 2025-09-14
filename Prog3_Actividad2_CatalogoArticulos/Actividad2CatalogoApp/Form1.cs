@@ -37,9 +37,20 @@ namespace Actividad2CatalogoApp
             }
         }
 
+        private void cargarFiltro()
+        {
+            cbxCampos.Items.Add("Codigo");
+            cbxCampos.Items.Add("Nombre");
+            cbxCampos.Items.Add("Descripcion");
+            cbxCampos.Items.Add("Marca");
+            cbxCampos.Items.Add("Categoria");
+            cbxCampos.Items.Add("Precio");
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             cargar();
+            cargarFiltro();
         }
 
         private void cargarImagen(string imagen)
@@ -109,6 +120,68 @@ namespace Actividad2CatalogoApp
             Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
             frmAgregarArticulo modificar = new frmAgregarArticulo(seleccionado);
             modificar.ShowDialog();
+        }
+
+        private void cbxCampos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string opcion = cbxCampos.SelectedItem.ToString();
+
+            MarcaNegocio marcaNegocio = new MarcaNegocio();
+            CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+
+            switch (opcion)
+            {
+                case "Codigo":
+                    cbxCriterio.Items.Clear();
+                    break;
+                case "Nombre":
+                    cbxCriterio.Items.Clear();
+                    cbxCriterio.Items.Add("Comienza con");
+                    cbxCriterio.Items.Add("Termina con");
+                    cbxCriterio.Items.Add("Contiene");
+                    break;
+                case "Descripcion":
+                    cbxCriterio.Items.Clear();
+                    cbxCriterio.Items.Add("Comienza con");
+                    cbxCriterio.Items.Add("Termina con");
+                    cbxCriterio.Items.Add("Contiene");
+                    break;
+                case "Marca":
+                    cbxCriterio.Items.Clear();
+                    cbxCriterio.DataSource = marcaNegocio.listar();
+                    break;
+                case "Categoria":
+                    cbxCriterio.Items.Clear();
+                    cbxCriterio.DataSource = categoriaNegocio.listar();
+                    break;
+                case "Precio":
+                    cbxCriterio.Items.Clear();
+                    cbxCriterio.Items.Add("Mayor a");
+                    cbxCriterio.Items.Add("Menor a");
+                    cbxCriterio.Items.Add("Igual a");
+                    break;
+            }
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            ArticuloNegocio negocio = new ArticuloNegocio();
+
+            try
+            {
+                string campo = cbxCampos.SelectedItem.ToString();
+                if(campo == "Marca" || campo == "Categoria")
+                {
+                    txtFiltro.Text = "";
+                }
+                string criterio = cbxCriterio.SelectedItem.ToString();
+                string filtro = txtFiltro.Text;
+                dgvArticulos.DataSource = negocio.filtrar(campo, criterio, filtro);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }
