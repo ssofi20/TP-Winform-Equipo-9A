@@ -16,9 +16,18 @@ namespace Actividad2CatalogoApp
     public partial class frmAgregarArticulo : Form
     {
         private List<Imagen> listaImagenes = new List<Imagen>();
+        private Articulo articulo = null;
+
         public frmAgregarArticulo()
         {
             InitializeComponent();
+            Text = "Agregar Articulo";
+        }
+        public frmAgregarArticulo(Articulo articulo)
+        {
+            InitializeComponent();
+            this.articulo = articulo;
+            Text = "Modificar Articulo";
         }
 
         private void frmAgregarArticulo_Load(object sender, EventArgs e)
@@ -29,7 +38,24 @@ namespace Actividad2CatalogoApp
             try
             {
                 cbxCategoria.DataSource = auxCat.listar();
+                cbxCategoria.ValueMember = "Id";
+                cbxCategoria.DisplayMember = "Descripcion";
+
                 cbxMarca.DataSource = auxMarca.listar();
+                cbxMarca.ValueMember = "Id";
+                cbxMarca.DisplayMember = "Descripcion";
+
+                //Si es una modificacion
+                if(articulo != null)
+                {
+                    tbxCodigo.Text = articulo.Codigo;
+                    tbxNombre.Text = articulo.Nombre;
+                    tbxDescription.Text = articulo.Descripcion;
+                    txtPrecio.Text = articulo.Precio.ToString();
+                    cbxMarca.SelectedValue = articulo.Marca.Id;
+                    cbxCategoria.SelectedValue = articulo.Categoria.Id;
+                    listaImagenes = articulo.Imagenes;
+                }
             }
             catch (Exception ex)
             {
@@ -44,33 +70,42 @@ namespace Actividad2CatalogoApp
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            Articulo nuevo = new Articulo();
             ArticuloNegocio negocio = new ArticuloNegocio();
          
             try
             {
-                nuevo.Codigo = tbxCodigo.Text;
-                nuevo.Nombre = tbxNombre.Text;
-                nuevo.Descripcion = tbxDescription.Text;
-                nuevo.Marca = (Marca)cbxMarca.SelectedItem;
-                nuevo.Categoria = (Categoria)cbxCategoria.SelectedItem;
-                nuevo.Precio = decimal.Parse(txtPrecio.Text);
+                if(articulo == null)
+                    articulo = new Articulo();
+
+                articulo.Codigo = tbxCodigo.Text;
+                articulo.Nombre = tbxNombre.Text;
+                articulo.Descripcion = tbxDescription.Text;
+                articulo.Marca = (Marca)cbxMarca.SelectedItem;
+                articulo.Categoria = (Categoria)cbxCategoria.SelectedItem;
+                articulo.Precio = decimal.Parse(txtPrecio.Text);
 
                 Marca marcaSeleccionada = (Marca)cbxMarca.SelectedItem;
                 Categoria categoriaSeleccionada = (Categoria)cbxCategoria.SelectedItem;
 
-                nuevo.Marca.Id = marcaSeleccionada.Id;
+                articulo.Marca.Id = marcaSeleccionada.Id;
+                articulo.Categoria.Id = categoriaSeleccionada.Id;
 
-                nuevo.Categoria.Id = categoriaSeleccionada.Id;
-
-                int idArticulo = negocio.agregar(nuevo);
-                foreach (Imagen img in listaImagenes)
+                if(articulo.Id != 0)
                 {
-                    img.ArticuloId = idArticulo;
-                    negocio.agregarImagen(img);
+                    //negocio.modificar(articulo);
+                    //negocio.eliminarImagenes(articulo.Id);
+                    MessageBox.Show("Modificado exitosamente");
                 }
-
-                MessageBox.Show("Agregado exitosamente");
+                else
+                {
+                    int idArticulo = negocio.agregar(articulo);
+                    foreach (Imagen img in listaImagenes)
+                    {
+                        img.ArticuloId = idArticulo;
+                        negocio.agregarImagen(img);
+                    }
+                    MessageBox.Show("Agregado exitosamente");
+                }
                 Close();
             }
             catch (Exception ex)
