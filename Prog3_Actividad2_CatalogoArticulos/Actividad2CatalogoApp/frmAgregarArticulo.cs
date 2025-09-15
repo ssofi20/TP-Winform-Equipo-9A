@@ -17,7 +17,7 @@ namespace Actividad2CatalogoApp
     {
         private List<Imagen> listaImagenes = new List<Imagen>();
         private Articulo articulo = null;
-
+        private int indiceImagen = 0;
         public frmAgregarArticulo()
         {
             InitializeComponent();
@@ -29,15 +29,25 @@ namespace Actividad2CatalogoApp
             this.articulo = articulo;
             Text = "Modificar Articulo";
         }
-        private void cargarImagen(string imagen)
+        private void cargarImagen()
         {
-            try
+            if (listaImagenes != null && listaImagenes.Count > 0)
             {
-                pbxImagenArticulo.Load(imagen);
+                try
+                {
+                    pbxImagenArticulo.Load(listaImagenes[indiceImagen].Url);
+                    txtUrlImagen.Text = listaImagenes[indiceImagen].Url; //Agrego la url para poder eliminar si es deseado
+                }
+                catch
+                {
+                    pbxImagenArticulo.Load("https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg");
+                    txtUrlImagen.Text = "URL Inválida";
+                }
             }
-            catch (Exception)
+            else
             {
-                pbxImagenArticulo.Load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ432ju-gdS2nl6CEobTaFXEe6_gRmK5DkWuQ&s");
+                pbxImagenArticulo.Load("https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg");
+                txtUrlImagen.Clear();
             }
         }
 
@@ -69,11 +79,11 @@ namespace Actividad2CatalogoApp
                     if(listaImagenes != null)
                     {
                         txtUrlImagen.Text = articulo.Imagenes[0].Url;
-                        cargarImagen(articulo.Imagenes[0].Url);
+                        cargarImagen();
                     }
                     else
                     {
-                        cargarImagen("https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg");
+                        cargarImagen();
                     }
                 }
             }
@@ -146,28 +156,15 @@ namespace Actividad2CatalogoApp
                     articulo.Imagenes = new List<Imagen>();
 
                 articulo.Imagenes.Add(img);
-                cargarImagen(url);
+
+                indiceImagen = listaImagenes.Count - 1; //Mostrar la ultima agregada
+                cargarImagen();
                 txtUrlImagen.Clear();
-                MessageBox.Show("Imagen agregada");
+                MessageBox.Show("Imagen agregada a la lista. Se agregará al guardar.");
             }
             else
             {
                 MessageBox.Show("Ingrese una URL valida");
-            }
-        }
-
-        private void txtUrlImagen_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                if (txtUrlImagen.Text != null || txtUrlImagen.Text != "")
-                    cargarImagen(txtUrlImagen.Text);
-                else
-                    pbxImagenArticulo.Load("https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg");
-            }
-            catch (Exception ex)
-            {
-                throw ex;
             }
         }
 
@@ -194,6 +191,30 @@ namespace Actividad2CatalogoApp
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            if (listaImagenes.Count > 0)
+            {
+                indiceImagen++;
+                if (indiceImagen >= listaImagenes.Count)
+                    indiceImagen = 0;
+
+                cargarImagen();
+            }
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            if (listaImagenes.Count > 0)
+            {
+                indiceImagen--;
+                if (indiceImagen < 0)
+                    indiceImagen = listaImagenes.Count - 1;
+
+                cargarImagen();
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -193,6 +194,73 @@ namespace negocio
             {
                 datos.cerrarConexion();
             }
+        }
+
+        public List<Articulo> filtrar(string campo, string criterio, string filtro)
+        {
+            List<Articulo> listaFiltrada = new List<Articulo>();
+            listaFiltrada = listar();
+
+            switch (campo)
+            {
+                case "Codigo":
+                    listaFiltrada = listaFiltrada.FindAll(a => a.Codigo.ToUpper() == filtro.ToUpper());
+                    break;
+
+                case "Nombre":
+                    switch (criterio)
+                    {
+                        case "Comienza con":
+                            listaFiltrada = listaFiltrada.FindAll(a => a.Nombre.ToUpper().StartsWith(filtro.ToUpper()));
+                            break;
+                        case "Termina con":
+                            listaFiltrada = listaFiltrada.FindAll(a => a.Nombre.ToUpper().EndsWith(filtro.ToUpper()));
+                            break;
+                        case "Contiene":
+                            listaFiltrada = listaFiltrada.FindAll(a => a.Nombre.ToUpper().Contains(filtro.ToUpper()));
+                            break;
+                    }
+                    break;
+
+                case "Descripcion":
+                    switch (criterio)
+                    {
+                        case "Comienza con":
+                            listaFiltrada = listaFiltrada.FindAll(a => a.Descripcion.ToUpper().StartsWith(filtro.ToUpper()));
+                            break;
+                        case "Termina con":
+                            listaFiltrada = listaFiltrada.FindAll(a => a.Descripcion.ToUpper().EndsWith(filtro.ToUpper()));
+                            break;
+                        case "Contiene":
+                            listaFiltrada = listaFiltrada.FindAll(a => a.Descripcion.ToUpper().Contains(filtro.ToUpper()));
+                            break;
+                    }
+                    break;
+
+                case "Marca":
+                    listaFiltrada = listaFiltrada.FindAll(a => a.Marca.Descripcion == criterio);
+                    break;
+
+                case "Categoria":
+                    listaFiltrada = listaFiltrada.FindAll(a => a.Categoria.Descripcion == criterio);
+                    break;
+
+                case "Precio":
+                    switch(criterio)
+                    {
+                        case "Mayor a":
+                        listaFiltrada = listaFiltrada.FindAll(a => a.Precio >= decimal.Parse(criterio));
+                            break;
+                        case "Menor a":
+                        listaFiltrada = listaFiltrada.FindAll(a => a.Precio <= decimal.Parse(criterio));
+                            break;
+                        case "Igual a":
+                        listaFiltrada = listaFiltrada.FindAll(a => a.Precio == decimal.Parse(criterio));
+                        break;
+                    }
+                    break;
+            }
+            return listaFiltrada;
         }
 
     }

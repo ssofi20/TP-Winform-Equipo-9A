@@ -214,7 +214,6 @@
             this.txtUrlImagen.Name = "txtUrlImagen";
             this.txtUrlImagen.Size = new System.Drawing.Size(128, 20);
             this.txtUrlImagen.TabIndex = 29;
-            this.txtUrlImagen.TextChanged += new System.EventHandler(this.txtUrlImagen_TextChanged);
             // 
             // pbxImagenArticulo
             // 
@@ -235,6 +234,7 @@
             this.btnSiguiente.TabIndex = 31;
             this.btnSiguiente.Text = "Siguiente";
             this.btnSiguiente.UseVisualStyleBackColor = true;
+            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
             // 
             // btnAnterior
             // 
@@ -245,6 +245,7 @@
             this.btnAnterior.TabIndex = 32;
             this.btnAnterior.Text = "Anterior";
             this.btnAnterior.UseVisualStyleBackColor = true;
+            this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
             // 
             // btnEliminarImagen
             // 
