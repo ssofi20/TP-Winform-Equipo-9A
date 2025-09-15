@@ -15,9 +15,40 @@ namespace Actividad2CatalogoApp
 {
     public partial class frmAgregarArticulo : Form
     {
+        private List<Imagen> listaImagenes = new List<Imagen>();
+        private Articulo articulo = null;
+        private int indiceImagen = 0;
         public frmAgregarArticulo()
         {
             InitializeComponent();
+            Text = "Agregar Articulo";
+        }
+        public frmAgregarArticulo(Articulo articulo)
+        {
+            InitializeComponent();
+            this.articulo = articulo;
+            Text = "Modificar Articulo";
+        }
+        private void cargarImagen()
+        {
+            if (listaImagenes != null && listaImagenes.Count > 0)
+            {
+                try
+                {
+                    pbxImagenArticulo.Load(listaImagenes[indiceImagen].Url);
+                    txtUrlImagen.Text = listaImagenes[indiceImagen].Url; //Agrego la url para poder eliminar si es deseado
+                }
+                catch
+                {
+                    pbxImagenArticulo.Load("https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg");
+                    txtUrlImagen.Text = "URL Inválida";
+                }
+            }
+            else
+            {
+                pbxImagenArticulo.Load("https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg");
+                txtUrlImagen.Clear();
+            }
         }
 
         private void frmAgregarArticulo_Load(object sender, EventArgs e)
@@ -28,7 +59,33 @@ namespace Actividad2CatalogoApp
             try
             {
                 cbxCategoria.DataSource = auxCat.listar();
+                cbxCategoria.ValueMember = "Id";
+                cbxCategoria.DisplayMember = "Descripcion";
+
                 cbxMarca.DataSource = auxMarca.listar();
+                cbxMarca.ValueMember = "Id";
+                cbxMarca.DisplayMember = "Descripcion";
+
+                //Si es una modificacion
+                if(articulo != null)
+                {
+                    tbxCodigo.Text = articulo.Codigo;
+                    tbxNombre.Text = articulo.Nombre;
+                    tbxDescription.Text = articulo.Descripcion;
+                    txtPrecio.Text = articulo.Precio.ToString();
+                    cbxMarca.SelectedValue = articulo.Marca.Id;
+                    cbxCategoria.SelectedValue = articulo.Categoria.Id;
+                    listaImagenes = articulo.Imagenes;
+                    if(listaImagenes != null)
+                    {
+                        txtUrlImagen.Text = articulo.Imagenes[0].Url;
+                        cargarImagen();
+                    }
+                    else
+                    {
+                        cargarImagen();
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -43,26 +100,41 @@ namespace Actividad2CatalogoApp
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            Articulo nuevo = new Articulo();
             ArticuloNegocio negocio = new ArticuloNegocio();
+         
             try
             {
-                nuevo.Codigo = tbxCodigo.Text;
-                nuevo.Nombre = tbxNombre.Text;
-                nuevo.Descripcion = tbxDescription.Text;
-                nuevo.Marca = (Marca)cbxMarca.SelectedItem;
-                nuevo.Categoria = (Categoria)cbxCategoria.SelectedItem;
-                nuevo.Precio = decimal.Parse(txtPrecio.Text);
+                if(articulo == null)
+                    articulo = new Articulo();
+
+                articulo.Codigo = tbxCodigo.Text;
+                articulo.Nombre = tbxNombre.Text;
+                articulo.Descripcion = tbxDescription.Text;
+                articulo.Marca = (Marca)cbxMarca.SelectedItem;
+                articulo.Categoria = (Categoria)cbxCategoria.SelectedItem;
+                articulo.Precio = decimal.Parse(txtPrecio.Text);
 
                 Marca marcaSeleccionada = (Marca)cbxMarca.SelectedItem;
                 Categoria categoriaSeleccionada = (Categoria)cbxCategoria.SelectedItem;
 
-                nuevo.Marca.Id = marcaSeleccionada.Id;
+                articulo.Marca.Id = marcaSeleccionada.Id;
+                articulo.Categoria.Id = categoriaSeleccionada.Id;
 
-                nuevo.Categoria.Id = categoriaSeleccionada.Id;
-
-                negocio.agregar(nuevo);
-                MessageBox.Show("Agregado exitosamente");
+                if(articulo.Id != 0)
+                {
+                    negocio.modificar(articulo);
+                    MessageBox.Show("Modificado exitosamente");
+                }
+                else
+                {
+                    int idArticulo = negocio.agregar(articulo);
+                    foreach (Imagen img in listaImagenes)
+                    {
+                        img.ArticuloId = idArticulo;
+                        negocio.agregarImagen(img);
+                    }
+                    MessageBox.Show("Agregado exitosamente");
+                }
                 Close();
             }
             catch (Exception ex)
@@ -71,6 +143,79 @@ namespace Actividad2CatalogoApp
             }
         }
 
-     
+        private void btnAgregarImagen_Click(object sender, EventArgs e)
+        {
+            string url = txtUrlImagen.Text;
+            if(txtUrlImagen.Text != null || txtUrlImagen.Text != "")
+            {
+                Imagen img = new Imagen();
+                img.Url = url;
+                img.ArticuloId = articulo.Id;
+
+                if(articulo.Imagenes == null)
+                    articulo.Imagenes = new List<Imagen>();
+
+                articulo.Imagenes.Add(img);
+
+                indiceImagen = listaImagenes.Count - 1; //Mostrar la ultima agregada
+                cargarImagen();
+                txtUrlImagen.Clear();
+                MessageBox.Show("Imagen agregada a la lista. Se agregará al guardar.");
+            }
+            else
+            {
+                MessageBox.Show("Ingrese una URL valida");
+            }
+        }
+
+        private void btnEliminarImagen_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Imagen imagenEliminar = listaImagenes.Find(i => i.Url == txtUrlImagen.Text);
+                if(imagenEliminar != null)
+                {
+                    DialogResult dialogResult = MessageBox.Show("¿Está seguro que desea eliminar la imagen?", "Eliminar Imagen", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.No)
+                        return;
+
+                    listaImagenes.Remove(imagenEliminar);
+                    MessageBox.Show("Imagen eliminada de la lista. Se eliminará al guardar.");
+                    txtUrlImagen.Clear();
+                }
+                else
+                {
+                    MessageBox.Show("La imagen no se encuentra en la lista.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            if (listaImagenes.Count > 0)
+            {
+                indiceImagen++;
+                if (indiceImagen >= listaImagenes.Count)
+                    indiceImagen = 0;
+
+                cargarImagen();
+            }
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            if (listaImagenes.Count > 0)
+            {
+                indiceImagen--;
+                if (indiceImagen < 0)
+                    indiceImagen = listaImagenes.Count - 1;
+
+                cargarImagen();
+            }
+        }
     }
 }
