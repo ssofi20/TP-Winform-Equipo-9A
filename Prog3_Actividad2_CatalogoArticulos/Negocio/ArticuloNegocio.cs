@@ -39,7 +39,7 @@ namespace negocio
                     aux.Categoria.Descripcion = (string)datos.Lector["Categoria"];
                    
 
-                   /* aux.Categoria = new Categoria();
+                    /*aux.Categoria = new Categoria();
 
                     if (datos.Lector["IdCategoria"] != DBNull.Value)
                     {
@@ -47,7 +47,7 @@ namespace negocio
                     }
                     else
                     {
-                        aux.Categoria.Id = 0; // o el valor por defecto que quieras
+                        aux.Categoria.Id = 0; 
                     }
 
                     if (datos.Lector["Categoria"] != DBNull.Value)
@@ -56,9 +56,9 @@ namespace negocio
                     }
                     else
                     {
-                        aux.Categoria.Descripcion = "Sin categoría"; // o null, como prefieras
-                    }
-                   */
+                        aux.Categoria.Descripcion = "Sin categoría"; 
+                    }*/
+                   
 
 
                     if (!(datos.Lector["ImagenPrimera"] is DBNull))
