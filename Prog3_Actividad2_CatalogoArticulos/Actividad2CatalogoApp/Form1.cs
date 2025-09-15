@@ -110,5 +110,12 @@ namespace Actividad2CatalogoApp
             frmAgregarArticulo modificar = new frmAgregarArticulo(seleccionado);
             modificar.ShowDialog();
         }
+
+        private void btnDetalle_Click(object sender, EventArgs e)
+        {
+            Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+            frmDetalle mostrar = new frmDetalle(seleccionado);
+            mostrar.ShowDialog();
+        }
     }
 }
