@@ -67,11 +67,15 @@ namespace Actividad2CatalogoApp
 
         private void dgvArticulos_SelectionChanged(object sender, EventArgs e)
         {
-            Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
-            if(seleccionado.Imagenes != null && seleccionado.Imagenes.Count > 0)
-                cargarImagen(seleccionado.Imagenes[0].Url);
-            else 
-                pcbxArticulo.Load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ432ju-gdS2nl6CEobTaFXEe6_gRmK5DkWuQ&s");
+            if (dgvArticulos.CurrentRow != null)
+            {
+                Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+
+                if (seleccionado.Imagenes != null && seleccionado.Imagenes.Count > 0)
+                    cargarImagen(seleccionado.Imagenes[0].Url);
+                else
+                    pcbxArticulo.Load("https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg");
+            }
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -132,33 +136,27 @@ namespace Actividad2CatalogoApp
             switch (opcion)
             {
                 case "Codigo":
-                    cbxCriterio.Items.Clear();
+                    cbxCriterio.DataSource = null;
                     break;
                 case "Nombre":
-                    cbxCriterio.Items.Clear();
-                    cbxCriterio.Items.Add("Comienza con");
-                    cbxCriterio.Items.Add("Termina con");
-                    cbxCriterio.Items.Add("Contiene");
+                    cbxCriterio.DataSource = null;
+                    cbxCriterio.DataSource = new List<string>() { "Comienza con", "Termina con", "Contiene" };
                     break;
                 case "Descripcion":
-                    cbxCriterio.Items.Clear();
-                    cbxCriterio.Items.Add("Comienza con");
-                    cbxCriterio.Items.Add("Termina con");
-                    cbxCriterio.Items.Add("Contiene");
+                    cbxCriterio.DataSource = null;
+                    cbxCriterio.DataSource = new List<string>() { "Comienza con", "Termina con", "Contiene" };
                     break;
                 case "Marca":
-                    cbxCriterio.Items.Clear();
+                    cbxCriterio.DataSource = null;
                     cbxCriterio.DataSource = marcaNegocio.listar();
                     break;
                 case "Categoria":
-                    cbxCriterio.Items.Clear();
+                    cbxCriterio.DataSource = null;
                     cbxCriterio.DataSource = categoriaNegocio.listar();
                     break;
                 case "Precio":
-                    cbxCriterio.Items.Clear();
-                    cbxCriterio.Items.Add("Mayor a");
-                    cbxCriterio.Items.Add("Menor a");
-                    cbxCriterio.Items.Add("Igual a");
+                    cbxCriterio.DataSource = null;
+                    cbxCriterio.DataSource = new List<string>() { "Mayor a", "Menor a", "Igual a" };
                     break;
             }
         }

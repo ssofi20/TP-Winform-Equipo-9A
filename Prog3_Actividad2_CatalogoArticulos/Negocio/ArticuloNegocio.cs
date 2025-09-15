@@ -181,20 +181,20 @@ namespace negocio
             switch (campo)
             {
                 case "Codigo":
-                    listaFiltrada = listar().FindAll(a => a.Codigo.ToUpper() == filtro.ToUpper());
+                    listaFiltrada = listaFiltrada.FindAll(a => a.Codigo.ToUpper() == filtro.ToUpper());
                     break;
 
                 case "Nombre":
                     switch (criterio)
                     {
                         case "Comienza con":
-                            listaFiltrada = listar().FindAll(a => a.Nombre.ToUpper().StartsWith(filtro.ToUpper()));
+                            listaFiltrada = listaFiltrada.FindAll(a => a.Nombre.ToUpper().StartsWith(filtro.ToUpper()));
                             break;
                         case "Termina con":
-                            listaFiltrada = listar().FindAll(a => a.Nombre.ToUpper().EndsWith(filtro.ToUpper()));
+                            listaFiltrada = listaFiltrada.FindAll(a => a.Nombre.ToUpper().EndsWith(filtro.ToUpper()));
                             break;
                         case "Contiene":
-                            listaFiltrada = listar().FindAll(a => a.Nombre.ToUpper().Contains(filtro.ToUpper()));
+                            listaFiltrada = listaFiltrada.FindAll(a => a.Nombre.ToUpper().Contains(filtro.ToUpper()));
                             break;
                     }
                     break;
@@ -203,36 +203,40 @@ namespace negocio
                     switch (criterio)
                     {
                         case "Comienza con":
-                            listaFiltrada = listar().FindAll(a => a.Descripcion.ToUpper().StartsWith(filtro.ToUpper()));
+                            listaFiltrada = listaFiltrada.FindAll(a => a.Descripcion.ToUpper().StartsWith(filtro.ToUpper()));
                             break;
                         case "Termina con":
-                            listaFiltrada = listar().FindAll(a => a.Descripcion.ToUpper().EndsWith(filtro.ToUpper()));
+                            listaFiltrada = listaFiltrada.FindAll(a => a.Descripcion.ToUpper().EndsWith(filtro.ToUpper()));
                             break;
                         case "Contiene":
-                            listaFiltrada = listar().FindAll(a => a.Descripcion.ToUpper().Contains(filtro.ToUpper()));
+                            listaFiltrada = listaFiltrada.FindAll(a => a.Descripcion.ToUpper().Contains(filtro.ToUpper()));
                             break;
                     }
                     break;
 
                 case "Marca":
-                    listaFiltrada = listar().FindAll(a => a.Marca.Descripcion == criterio);
+                    listaFiltrada = listaFiltrada.FindAll(a => a.Marca.Descripcion == criterio);
                     break;
 
                 case "Categoria":
-                    listaFiltrada = listar().FindAll(a => a.Categoria.Descripcion == criterio);
+                    listaFiltrada = listaFiltrada.FindAll(a => a.Categoria.Descripcion == criterio);
                     break;
 
                 case "Precio":
-                    case "Mayor a":
-                    listaFiltrada = listar().FindAll(a => a.Precio >= (decimal)criterio);
+                    switch(criterio)
+                    {
+                        case "Mayor a":
+                        listaFiltrada = listaFiltrada.FindAll(a => a.Precio >= decimal.Parse(criterio));
+                            break;
+                        case "Menor a":
+                        listaFiltrada = listaFiltrada.FindAll(a => a.Precio <= decimal.Parse(criterio));
+                            break;
+                        case "Igual a":
+                        listaFiltrada = listaFiltrada.FindAll(a => a.Precio == decimal.Parse(criterio));
                         break;
-                    case "Menor a":
-                        break;
-                    case "Igual a":
-                        break;
+                    }
                     break;
             }
-
             return listaFiltrada;
         }
 
