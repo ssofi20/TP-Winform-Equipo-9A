@@ -131,6 +131,7 @@ namespace Actividad2CatalogoApp
             Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
             frmDetalle mostrar = new frmDetalle(seleccionado);
             mostrar.ShowDialog();
+        }
 
         private void cbxCampos_SelectedIndexChanged(object sender, EventArgs e)
         {
