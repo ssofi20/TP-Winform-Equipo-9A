@@ -168,6 +168,38 @@ namespace Actividad2CatalogoApp
             }
         }
 
+        private bool soloNumeros(string cadena)
+        {
+            foreach (char caracter in cadena)
+            {
+                if (!(char.IsNumber(caracter)))
+                    return false;
+            }
+            return true;
+        }
+        private bool validarFiltros()
+        {
+            if(cbxCampos.SelectedIndex < 0)
+            {
+                MessageBox.Show("Debe seleccionar un campo");
+                return false;
+            }
+            if (cbxCriterio.SelectedIndex < 0)
+            {
+                MessageBox.Show("Debe seleccionar un criterio");
+                return false;
+            }
+            if(cbxCampos.SelectedItem.ToString() == "Precio")
+            {
+                if(!(soloNumeros(txtFiltro.Text)))
+                {
+                    MessageBox.Show("Solo debe ingresar números");
+                    return false;
+                }
+            }
+            return true;
+        }
+
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
@@ -179,6 +211,10 @@ namespace Actividad2CatalogoApp
                 {
                     txtFiltro.Text = "";
                 }
+
+                if (!validarFiltros())
+                    return;
+
                 string criterio = cbxCriterio.SelectedItem.ToString();
                 string filtro = txtFiltro.Text;
                 dgvArticulos.DataSource = negocio.filtrar(campo, criterio, filtro);
