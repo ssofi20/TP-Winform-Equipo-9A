@@ -198,7 +198,7 @@ namespace Actividad2CatalogoApp
                 MessageBox.Show("Debe seleccionar un campo");
                 return false;
             }
-            if (cbxCriterio.SelectedIndex < 0)
+            if (cbxCriterio.SelectedIndex < 0 && cbxCampos.SelectedItem.ToString() != "Codigo")
             {
                 MessageBox.Show("Debe seleccionar un criterio");
                 return false;
@@ -221,15 +221,23 @@ namespace Actividad2CatalogoApp
             try
             {
                 string campo = cbxCampos.SelectedItem.ToString();
+                string criterio;
                 if(campo == "Marca" || campo == "Categoria")
                 {
                     txtFiltro.Text = "";
+                }
+                if(campo == "Codigo")
+                {
+                    criterio = "";
+                } 
+                else
+                {
+                    criterio = cbxCriterio.SelectedItem.ToString();
                 }
 
                 if (!validarFiltros())
                     return;
 
-                string criterio = cbxCriterio.SelectedItem.ToString();
                 string filtro = txtFiltro.Text;
                 dgvArticulos.DataSource = negocio.filtrar(campo, criterio, filtro);
             }
