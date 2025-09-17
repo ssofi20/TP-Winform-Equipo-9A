@@ -151,27 +151,33 @@ namespace Actividad2CatalogoApp
             switch (opcion)
             {
                 case "Codigo":
-                    cbxCriterio.DataSource = null;
+                    cbxCriterio.Enabled = false;
+                    txtFiltro.Enabled = true;
                     break;
                 case "Nombre":
                     cbxCriterio.DataSource = null;
                     cbxCriterio.DataSource = new List<string>() { "Comienza con", "Termina con", "Contiene" };
+                    txtFiltro.Enabled = true;
                     break;
                 case "Descripcion":
                     cbxCriterio.DataSource = null;
                     cbxCriterio.DataSource = new List<string>() { "Comienza con", "Termina con", "Contiene" };
+                    txtFiltro.Enabled = true;
                     break;
                 case "Marca":
                     cbxCriterio.DataSource = null;
                     cbxCriterio.DataSource = marcaNegocio.listar();
+                    txtFiltro.Enabled = false;
                     break;
                 case "Categoria":
                     cbxCriterio.DataSource = null;
                     cbxCriterio.DataSource = categoriaNegocio.listar();
+                    txtFiltro.Enabled = false;
                     break;
                 case "Precio":
                     cbxCriterio.DataSource = null;
                     cbxCriterio.DataSource = new List<string>() { "Mayor a", "Menor a", "Igual a" };
+                    txtFiltro.Enabled = true;
                     break;
             }
         }

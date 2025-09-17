@@ -195,12 +195,19 @@ namespace Actividad2CatalogoApp
             }
         }
 
+        private void actualizarBotones()
+        {
+            btnAnterior.Enabled = indiceImagen > 0;
+            btnSiguiente.Enabled = indiceImagen < listaImagenes.Count - 1;
+        }
+
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
             if (articulo.Imagenes != null && indiceImagen < articulo.Imagenes.Count - 1)
             {
                 indiceImagen++;
                 cargarImagen();
+                actualizarBotones();
             }
         }
 
@@ -210,6 +217,7 @@ namespace Actividad2CatalogoApp
             {
                 indiceImagen--;
                 cargarImagen();
+                actualizarBotones();
             }
         }
 

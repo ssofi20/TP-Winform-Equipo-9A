@@ -12,6 +12,8 @@ namespace negocio
     public class ArticuloNegocio
     {
         private AccesoDatos datos = new AccesoDatos();
+
+        //METODO PARA LISTAR TODOS LOS ARTICULOS DE LA BASE DE DATOS
         public List<Articulo> listar()
         {
             List<Articulo> lista = new List<Articulo>();
