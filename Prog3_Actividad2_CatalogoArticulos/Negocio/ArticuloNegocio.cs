@@ -37,6 +37,29 @@ namespace negocio
                     aux.Categoria = new Categoria();
                     aux.Categoria.Id = (int)datos.Lector["IdCategoria"];
                     aux.Categoria.Descripcion = (string)datos.Lector["Categoria"];
+                   
+
+                    /*aux.Categoria = new Categoria();
+
+                    if (datos.Lector["IdCategoria"] != DBNull.Value)
+                    {
+                        aux.Categoria.Id = (int)datos.Lector["IdCategoria"];
+                    }
+                    else
+                    {
+                        aux.Categoria.Id = 0; 
+                    }
+
+                    if (datos.Lector["Categoria"] != DBNull.Value)
+                    {
+                        aux.Categoria.Descripcion = (string)datos.Lector["Categoria"];
+                    }
+                    else
+                    {
+                        aux.Categoria.Descripcion = "Sin categoría"; 
+                    }*/
+                   
+
 
                     if (!(datos.Lector["ImagenPrimera"] is DBNull))
                     {

@@ -126,6 +126,13 @@ namespace Actividad2CatalogoApp
             modificar.ShowDialog();
         }
 
+        private void btnDetalle_Click(object sender, EventArgs e)
+        {
+            Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+            frmDetalle mostrar = new frmDetalle(seleccionado);
+            mostrar.ShowDialog();
+        }
+
         private void cbxCampos_SelectedIndexChanged(object sender, EventArgs e)
         {
             string opcion = cbxCampos.SelectedItem.ToString();
