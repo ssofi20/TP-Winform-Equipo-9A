@@ -31,7 +31,7 @@ namespace Actividad2CatalogoApp
         }
         private void cargarImagen()
         {
-            if (listaImagenes != null && listaImagenes.Count > 0)
+            if (listaImagenes != null && listaImagenes.Count > 0 && indiceImagen >= 0 && indiceImagen < articulo.Imagenes.Count)
             {
                 try
                 {
@@ -69,6 +69,7 @@ namespace Actividad2CatalogoApp
                 //Si es una modificacion
                 if(articulo != null)
                 {
+                    //MessageBox.Show("Cantidad de imágenes: " + articulo.Imagenes.Count);
                     tbxCodigo.Text = articulo.Codigo;
                     tbxNombre.Text = articulo.Nombre;
                     tbxDescription.Text = articulo.Descripcion;
@@ -196,24 +197,18 @@ namespace Actividad2CatalogoApp
 
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
-            if (listaImagenes.Count > 0)
+            if (articulo.Imagenes != null && indiceImagen < articulo.Imagenes.Count - 1)
             {
                 indiceImagen++;
-                if (indiceImagen >= listaImagenes.Count)
-                    indiceImagen = 0;
-
                 cargarImagen();
             }
         }
 
         private void btnAnterior_Click(object sender, EventArgs e)
         {
-            if (listaImagenes.Count > 0)
+            if (articulo.Imagenes != null && indiceImagen > 0)
             {
                 indiceImagen--;
-                if (indiceImagen < 0)
-                    indiceImagen = listaImagenes.Count - 1;
-
                 cargarImagen();
             }
         }
