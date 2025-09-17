@@ -158,25 +158,30 @@ namespace Actividad2CatalogoApp
                     cbxCriterio.DataSource = null;
                     cbxCriterio.DataSource = new List<string>() { "Comienza con", "Termina con", "Contiene" };
                     txtFiltro.Enabled = true;
+                    cbxCriterio.Enabled = true;
                     break;
                 case "Descripcion":
                     cbxCriterio.DataSource = null;
                     cbxCriterio.DataSource = new List<string>() { "Comienza con", "Termina con", "Contiene" };
+                    cbxCriterio.Enabled = true;
                     txtFiltro.Enabled = true;
                     break;
                 case "Marca":
                     cbxCriterio.DataSource = null;
                     cbxCriterio.DataSource = marcaNegocio.listar();
+                    cbxCriterio.Enabled = true;
                     txtFiltro.Enabled = false;
                     break;
                 case "Categoria":
                     cbxCriterio.DataSource = null;
                     cbxCriterio.DataSource = categoriaNegocio.listar();
+                    cbxCriterio.Enabled = true;
                     txtFiltro.Enabled = false;
                     break;
                 case "Precio":
                     cbxCriterio.DataSource = null;
                     cbxCriterio.DataSource = new List<string>() { "Mayor a", "Menor a", "Igual a" };
+                    cbxCriterio.Enabled = true;
                     txtFiltro.Enabled = true;
                     break;
             }
