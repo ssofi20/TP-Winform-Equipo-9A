@@ -40,13 +40,13 @@ namespace Actividad2CatalogoApp
                 }
                 catch
                 {
-                    pbxImagenArticulo.Load("https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg");
+                    pbxImagenArticulo.Load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ432ju-gdS2nl6CEobTaFXEe6_gRmK5DkWuQ&s");
                     txtUrlImagen.Text = "URL Inválida";
                 }
             }
             else
             {
-                pbxImagenArticulo.Load("https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg");
+                pbxImagenArticulo.Load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ432ju-gdS2nl6CEobTaFXEe6_gRmK5DkWuQ&s");
                 txtUrlImagen.Clear();
             }
         }
@@ -75,16 +75,20 @@ namespace Actividad2CatalogoApp
                     txtPrecio.Text = articulo.Precio.ToString();
                     cbxMarca.SelectedValue = articulo.Marca.Id;
                     cbxCategoria.SelectedValue = articulo.Categoria.Id;
-                    listaImagenes = articulo.Imagenes;
-                    if(listaImagenes != null)
+                    listaImagenes = articulo.Imagenes ?? new List<Imagen>();
+                    if (listaImagenes.Count > 0)
                     {
-                        txtUrlImagen.Text = articulo.Imagenes[0].Url;
+                        indiceImagen = 0;
                         cargarImagen();
                     }
                     else
                     {
                         cargarImagen();
                     }
+                }
+                else
+                {
+                    articulo = new Articulo();
                 }
             }
             catch (Exception ex)
@@ -105,7 +109,7 @@ namespace Actividad2CatalogoApp
             try
             {
                 if(articulo == null)
-                    articulo = new Articulo();
+                  articulo = new Articulo();
 
                 articulo.Codigo = tbxCodigo.Text;
                 articulo.Nombre = tbxNombre.Text;
@@ -146,16 +150,12 @@ namespace Actividad2CatalogoApp
         private void btnAgregarImagen_Click(object sender, EventArgs e)
         {
             string url = txtUrlImagen.Text;
-            if(txtUrlImagen.Text != null || txtUrlImagen.Text != "")
+            if(txtUrlImagen.Text != null && txtUrlImagen.Text != "")
             {
                 Imagen img = new Imagen();
                 img.Url = url;
-                img.ArticuloId = articulo.Id;
 
-                if(articulo.Imagenes == null)
-                    articulo.Imagenes = new List<Imagen>();
-
-                articulo.Imagenes.Add(img);
+                listaImagenes.Add(img);
 
                 indiceImagen = listaImagenes.Count - 1; //Mostrar la ultima agregada
                 cargarImagen();

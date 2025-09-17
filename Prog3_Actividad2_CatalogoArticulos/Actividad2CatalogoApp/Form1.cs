@@ -74,7 +74,7 @@ namespace Actividad2CatalogoApp
                 if (seleccionado.Imagenes != null && seleccionado.Imagenes.Count > 0)
                     cargarImagen(seleccionado.Imagenes[0].Url);
                 else
-                    pcbxArticulo.Load("https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg");
+                    pcbxArticulo.Load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ432ju-gdS2nl6CEobTaFXEe6_gRmK5DkWuQ&s");
             }
         }
 
