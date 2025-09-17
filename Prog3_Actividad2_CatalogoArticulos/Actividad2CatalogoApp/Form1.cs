@@ -21,6 +21,21 @@ namespace Actividad2CatalogoApp
             InitializeComponent();
         }
 
+        //MENU MARCAS
+        private void tsmMarcas_Click(object sender, EventArgs e)
+        {
+            FromMarcas marcas = new FromMarcas();
+            marcas.ShowDialog();
+        }
+
+        //MENU CATEGORIAS
+        private void tsmCategorias_Click(object sender, EventArgs e)
+        {
+            FormCategorias categorias = new FormCategorias();
+            categorias.ShowDialog();
+        }
+
+        //FUNCIONES AUXILIARES 
         private void cargar()
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
@@ -46,13 +61,6 @@ namespace Actividad2CatalogoApp
             cbxCampos.Items.Add("Categoria");
             cbxCampos.Items.Add("Precio");
         }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            cargar();
-            cargarFiltro();
-        }
-
         private void cargarImagen(string imagen)
         {
             try
@@ -65,6 +73,14 @@ namespace Actividad2CatalogoApp
             }
         }
 
+        //EVENTO LOAD
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            cargar();
+            cargarFiltro();
+        }
+
+        //EVENTO CAMBIO DE SELECCION DE ARTICULO
         private void dgvArticulos_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvArticulos.CurrentRow != null)
@@ -78,6 +94,7 @@ namespace Actividad2CatalogoApp
             }
         }
 
+        //EVENTO CLICK BOTON AGREGAR
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             frmAgregarArticulo alta = new frmAgregarArticulo();
@@ -85,12 +102,7 @@ namespace Actividad2CatalogoApp
             cargar();
         }
 
-        private void tsmMarcas_Click(object sender, EventArgs e)
-        {
-            FromMarcas marcas = new FromMarcas();
-            marcas.ShowDialog();
-        }
-
+        //EVENTO CLICK BOTON ELIMINAR
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
@@ -112,13 +124,7 @@ namespace Actividad2CatalogoApp
             }
         }
 
-        private void tsmCategorias_Click(object sender, EventArgs e)
-        {
-            FormCategorias categorias = new FormCategorias();
-            categorias.ShowDialog();
-
-        }
-
+        //EVENTO CLICK BOTON MODIFICAR
         private void btnModificar_Click(object sender, EventArgs e)
         {
             Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
@@ -126,6 +132,7 @@ namespace Actividad2CatalogoApp
             modificar.ShowDialog();
         }
 
+        //EVENTO CLICK BOTON VER DETALLE
         private void btnDetalle_Click(object sender, EventArgs e)
         {
             Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
@@ -133,6 +140,7 @@ namespace Actividad2CatalogoApp
             mostrar.ShowDialog();
         }
 
+        /*FILTRO DE BUSQUEDA*/
         private void cbxCampos_SelectedIndexChanged(object sender, EventArgs e)
         {
             string opcion = cbxCampos.SelectedItem.ToString();
