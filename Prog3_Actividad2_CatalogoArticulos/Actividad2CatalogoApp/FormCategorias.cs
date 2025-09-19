@@ -74,11 +74,19 @@ namespace Actividad2CatalogoApp
                 if (dgvCategorias.CurrentRow != null)
                 {
                     categoria = (Categoria)dgvCategorias.CurrentRow.DataBoundItem;
-                    DialogResult respuesta = MessageBox.Show("¿Está seguro que desea eliminar la categoría " + categoria.Descripcion + "?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    if (respuesta == DialogResult.Yes)
+
+                    if (negocio.verificar(categoria.Id) == 0 )
                     {
-                        negocio.eliminar(categoria.Id);
-                        cargar();
+                        DialogResult respuesta = MessageBox.Show("¿Está seguro que desea eliminar la categoría " + categoria.Descripcion + "?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        if (respuesta == DialogResult.Yes)
+                        {
+                            negocio.eliminar(categoria.Id);
+                            cargar();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se puede eliminar la categoria porque hay artículos con esta categoria.");
                     }
                 }
             }

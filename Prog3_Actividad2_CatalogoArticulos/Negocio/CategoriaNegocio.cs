@@ -80,6 +80,29 @@ namespace negocio
             }
         }
 
+        public int verificar(int id)
+        {
+            try
+            {
+                datos.setearConsulta("SELECT COUNT (Id) FROM ARTICULOS WHERE IdCategoria = @idVer");
+                datos.setearParametro("@idVer", id);
+                datos.ejecutarLectura();
+                datos.Lector.Read();
+                int cantArt = (int)datos.Lector[0];
+
+                return cantArt;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
         public void eliminar(int id)
         {
             try

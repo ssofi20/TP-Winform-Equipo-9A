@@ -49,13 +49,29 @@ namespace Actividad2CatalogoApp
 
                 if(categoria.Id != 0)
                 {
-                    negocio.modificar(categoria);
-                    MessageBox.Show("Categoria modificada exitosamente");
+                    if (string.IsNullOrWhiteSpace(txtNombreCategoria.Text))
+                    {
+                        MessageBox.Show("Ingresar el nuevo nombre para continuar.");
+                        return;
+                    }
+                    else
+                    {
+                        negocio.modificar(categoria);
+                        MessageBox.Show("Categoria modificada exitosamente");
+                    }
                 }
                 else
                 {
+                    if (string.IsNullOrWhiteSpace(txtNombreCategoria.Text))
+                    {
+                        MessageBox.Show("Ingrese un nombre para continuar.");
+                        return;
+                    }
+                    else
+                    {
                     negocio.agregar(categoria);
                     MessageBox.Show("Categoria agregada exitosamente");
+                    }
                 }
 
                 this.Close();

@@ -43,11 +43,19 @@ namespace Actividad2CatalogoApp
                     marca = new Marca();
 
                 marca.Descripcion = txtNombreMarca.Text;
-                
-                if(marca.Id != 0)
+
+                if (marca.Id != 0)
                 {
-                    negocio.modificar(marca);
-                    MessageBox.Show("Marca modificada exitosamente");
+                    if (string.IsNullOrWhiteSpace(txtNombreMarca.Text))
+                    {
+                        MessageBox.Show("Ingrese el nuevo nombre para poder modificar.");
+                        return;
+                    }
+                    else
+                    {
+                        negocio.modificar(marca);
+                        MessageBox.Show("Marca modificada exitosamente");
+                    }
                 }
                 else
                 {
