@@ -12,13 +12,15 @@ namespace negocio
     public class ArticuloNegocio
     {
         private AccesoDatos datos = new AccesoDatos();
+
+        //METODO PARA LISTAR TODOS LOS ARTICULOS DE LA BASE DE DATOS
         public List<Articulo> listar()
         {
             List<Articulo> lista = new List<Articulo>();
 
             try
             {
-                datos.setearConsulta("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, M.Id AS IdMarca, M.Descripcion AS Marca, C.Id AS IdCategoria, C.Descripcion AS Categoria, A.Precio, (SELECT TOP 1 I.ImagenUrl FROM IMAGENES I WHERE I.IdArticulo = A.Id ORDER BY I.Id) AS ImagenPrimera FROM ARTICULOS A LEFT JOIN MARCAS M ON M.Id = A.IdMarca LEFT JOIN CATEGORIAS C ON C.Id = A.IdCategoria");
+                datos.setearConsulta("SELECT A.Id, Codigo, Nombre, A.Descripcion, M.Descripcion Marca, C.Descripcion Categoria, A.IdMarca, A.IdCategoria, A.Precio FROM ARTICULOS A, MARCAS M, CATEGORIAS C WHERE A.IdMarca = M.Id AND A.IdCategoria = C.Id");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -62,22 +64,38 @@ namespace negocio
 
 
                     if (!(datos.Lector["ImagenPrimera"] is DBNull))
+                    aux.Categoria.Descripcion = (string)datos.Lector["Categoria"];
+
+                    //CARGAR TODAS LAS IMGENES DEL ARTICULO EN LA LISTA 
+                    AccesoDatos datosImagenes = new AccesoDatos();
+                    datosImagenes.setearConsulta("SELECT Id, ImagenUrl, IdArticulo FROM IMAGENES WHERE IdArticulo = @articuloId");
+                    datosImagenes.setearParametro("@articuloId", aux.Id);
+                    datosImagenes.ejecutarLectura();
+
+                    aux.Imagenes = new List<Imagen>();
+                    while (datosImagenes.Lector.Read())
                     {
                         Imagen img = new Imagen();
-                        img.Url = (string)datos.Lector["ImagenPrimera"];
-                        aux.Imagenes = new List<Imagen>();
+                        img.Id = (int)datosImagenes.Lector["id"];
+                        img.Url = (string)datosImagenes.Lector["ImagenUrl"];
+                        img.ArticuloId = (int)datosImagenes.Lector["IdArticulo"];
                         aux.Imagenes.Add(img);
                     }
 
+                    datosImagenes.cerrarConexion();
                     lista.Add(aux);
                 }
+                return lista;
             }
             catch (Exception ex)
             {
 
                 throw ex;
             }
-            return lista;
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
 
         public int agregar(Articulo nuevo)

@@ -21,6 +21,21 @@ namespace Actividad2CatalogoApp
             InitializeComponent();
         }
 
+        //MENU MARCAS
+        private void tsmMarcas_Click(object sender, EventArgs e)
+        {
+            FromMarcas marcas = new FromMarcas();
+            marcas.ShowDialog();
+        }
+
+        //MENU CATEGORIAS
+        private void tsmCategorias_Click(object sender, EventArgs e)
+        {
+            FormCategorias categorias = new FormCategorias();
+            categorias.ShowDialog();
+        }
+
+        //FUNCIONES AUXILIARES 
         private void cargar()
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
@@ -46,13 +61,6 @@ namespace Actividad2CatalogoApp
             cbxCampos.Items.Add("Categoria");
             cbxCampos.Items.Add("Precio");
         }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            cargar();
-            cargarFiltro();
-        }
-
         private void cargarImagen(string imagen)
         {
             try
@@ -65,6 +73,14 @@ namespace Actividad2CatalogoApp
             }
         }
 
+        //EVENTO LOAD
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            cargar();
+            cargarFiltro();
+        }
+
+        //EVENTO CAMBIO DE SELECCION DE ARTICULO
         private void dgvArticulos_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvArticulos.CurrentRow != null)
@@ -78,6 +94,7 @@ namespace Actividad2CatalogoApp
             }
         }
 
+        //EVENTO CLICK BOTON AGREGAR
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             frmAgregarArticulo alta = new frmAgregarArticulo();
@@ -85,12 +102,7 @@ namespace Actividad2CatalogoApp
             cargar();
         }
 
-        private void tsmMarcas_Click(object sender, EventArgs e)
-        {
-            FromMarcas marcas = new FromMarcas();
-            marcas.ShowDialog();
-        }
-
+        //EVENTO CLICK BOTON ELIMINAR
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
@@ -112,13 +124,7 @@ namespace Actividad2CatalogoApp
             }
         }
 
-        private void tsmCategorias_Click(object sender, EventArgs e)
-        {
-            FormCategorias categorias = new FormCategorias();
-            categorias.ShowDialog();
-
-        }
-
+        //EVENTO CLICK BOTON MODIFICAR
         private void btnModificar_Click(object sender, EventArgs e)
         {
             Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
@@ -126,6 +132,7 @@ namespace Actividad2CatalogoApp
             modificar.ShowDialog();
         }
 
+        //EVENTO CLICK BOTON VER DETALLE
         private void btnDetalle_Click(object sender, EventArgs e)
         {
             Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
@@ -133,6 +140,7 @@ namespace Actividad2CatalogoApp
             mostrar.ShowDialog();
         }
 
+        /*FILTRO DE BUSQUEDA*/
         private void cbxCampos_SelectedIndexChanged(object sender, EventArgs e)
         {
             string opcion = cbxCampos.SelectedItem.ToString();
@@ -143,29 +151,72 @@ namespace Actividad2CatalogoApp
             switch (opcion)
             {
                 case "Codigo":
-                    cbxCriterio.DataSource = null;
+                    cbxCriterio.Enabled = false;
+                    txtFiltro.Enabled = true;
                     break;
                 case "Nombre":
                     cbxCriterio.DataSource = null;
                     cbxCriterio.DataSource = new List<string>() { "Comienza con", "Termina con", "Contiene" };
+                    txtFiltro.Enabled = true;
+                    cbxCriterio.Enabled = true;
                     break;
                 case "Descripcion":
                     cbxCriterio.DataSource = null;
                     cbxCriterio.DataSource = new List<string>() { "Comienza con", "Termina con", "Contiene" };
+                    cbxCriterio.Enabled = true;
+                    txtFiltro.Enabled = true;
                     break;
                 case "Marca":
                     cbxCriterio.DataSource = null;
                     cbxCriterio.DataSource = marcaNegocio.listar();
+                    cbxCriterio.Enabled = true;
+                    txtFiltro.Enabled = false;
                     break;
                 case "Categoria":
                     cbxCriterio.DataSource = null;
                     cbxCriterio.DataSource = categoriaNegocio.listar();
+                    cbxCriterio.Enabled = true;
+                    txtFiltro.Enabled = false;
                     break;
                 case "Precio":
                     cbxCriterio.DataSource = null;
                     cbxCriterio.DataSource = new List<string>() { "Mayor a", "Menor a", "Igual a" };
+                    cbxCriterio.Enabled = true;
+                    txtFiltro.Enabled = true;
                     break;
             }
+        }
+
+        private bool soloNumeros(string cadena)
+        {
+            foreach (char caracter in cadena)
+            {
+                if (!(char.IsNumber(caracter)))
+                    return false;
+            }
+            return true;
+        }
+        private bool validarFiltros()
+        {
+            if(cbxCampos.SelectedIndex < 0)
+            {
+                MessageBox.Show("Debe seleccionar un campo");
+                return false;
+            }
+            if (cbxCriterio.SelectedIndex < 0 && cbxCampos.SelectedItem.ToString() != "Codigo")
+            {
+                MessageBox.Show("Debe seleccionar un criterio");
+                return false;
+            }
+            if(cbxCampos.SelectedItem.ToString() == "Precio")
+            {
+                if(!(soloNumeros(txtFiltro.Text)))
+                {
+                    MessageBox.Show("Solo debe ingresar números");
+                    return false;
+                }
+            }
+            return true;
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -175,11 +226,23 @@ namespace Actividad2CatalogoApp
             try
             {
                 string campo = cbxCampos.SelectedItem.ToString();
+                string criterio;
                 if(campo == "Marca" || campo == "Categoria")
                 {
                     txtFiltro.Text = "";
                 }
-                string criterio = cbxCriterio.SelectedItem.ToString();
+                if(campo == "Codigo")
+                {
+                    criterio = "";
+                } 
+                else
+                {
+                    criterio = cbxCriterio.SelectedItem.ToString();
+                }
+
+                if (!validarFiltros())
+                    return;
+
                 string filtro = txtFiltro.Text;
                 dgvArticulos.DataSource = negocio.filtrar(campo, criterio, filtro);
             }

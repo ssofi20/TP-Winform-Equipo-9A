@@ -73,39 +73,30 @@ namespace Actividad2CatalogoApp
                 txtUrl.Clear();
             }
         }
+        private void actualizarBotones()
+        {
+            btnAnterior.Enabled = indiceActual > 0;
+            btnSiguiente.Enabled = indiceActual < listaImag.Count - 1;
+        }
 
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
-
-            if (listaImag.Count > 0)
+            if (listaImag != null && listaImag.Count > 0 && indiceActual < listaImag.Count - 1)
             {
                 indiceActual++;
-                if (indiceActual >= listaImag.Count)
-                {
-                    indiceActual = 0;
-                }
-
                 cargarImagen();
-            } else
-            {
-                pcbxDetalle.Load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ432ju-gdS2nl6CEobTaFXEe6_gRmK5DkWuQ&s");
-                txtUrl.Clear();
+                actualizarBotones();
             }
-
         }
             
 
         private void btnAnterior_Click(object sender, EventArgs e)
         {
-            if (listaImag.Count > 0)
+            if (listaImag != null && listaImag.Count > 0 && indiceActual > 0)
             {
                 indiceActual--;
-                if (indiceActual >= listaImag.Count)
-                {
-                    indiceActual = listaImag.Count - 1;
-                }
-
                 cargarImagen();
+                actualizarBotones();
             }
         }
     }
