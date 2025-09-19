@@ -51,8 +51,17 @@ namespace Actividad2CatalogoApp
                 }
                 else
                 {
-                    negocio.agregar(marca);
+                    if (string.IsNullOrWhiteSpace(txtNombreMarca.Text))
+                    {
+                        MessageBox.Show("Ingrese un nombre para continuar.");
+                        return;
+                    }
+                    else
+                    {
+                        negocio.agregar(marca);
                     MessageBox.Show("Marca agregada exitosamente");
+                        
+                    }
                 }
 
                 this.Close();
