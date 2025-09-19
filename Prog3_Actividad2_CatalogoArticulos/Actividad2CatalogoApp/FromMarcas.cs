@@ -54,12 +54,20 @@ namespace Actividad2CatalogoApp
                 if (dgvMarcas.CurrentRow != null)
                 {
                     marcaSeleccionada = (Marca)dgvMarcas.CurrentRow.DataBoundItem;
-                    DialogResult respuesta = MessageBox.Show("¿Está seguro que desea eliminar la marca " + marcaSeleccionada.Descripcion + "?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    if (respuesta == DialogResult.Yes)
+
+                    if (marcaNegocio.verificar(marcaSeleccionada.Id) == 0)
                     {
-                        marcaNegocio.eliminar(marcaSeleccionada.Id);
-                        cargar();
+                        DialogResult respuesta = MessageBox.Show("¿Está seguro que desea eliminar la marca " + marcaSeleccionada.Descripcion + "?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        if (respuesta == DialogResult.Yes)
+                        {
+                            marcaNegocio.eliminar(marcaSeleccionada.Id);
+                            cargar();
+                        }
+                    }else
+                    {
+                        MessageBox.Show("No se puede eliminar la marca porque hay artículos con esta marca.");
                     }
+
                 }
             }
             catch (Exception ex)

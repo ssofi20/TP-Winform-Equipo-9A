@@ -34,12 +34,12 @@ namespace negocio
                     aux.Marca.Id = (int)datos.Lector["IdMarca"];
                     aux.Marca.Descripcion = (string)datos.Lector["Marca"];
 
-                    aux.Categoria = new Categoria();
+                    /*aux.Categoria = new Categoria();
                     aux.Categoria.Id = (int)datos.Lector["IdCategoria"];
-                    aux.Categoria.Descripcion = (string)datos.Lector["Categoria"];
+                    aux.Categoria.Descripcion = (string)datos.Lector["Categoria"];*/
                    
 
-                    /*aux.Categoria = new Categoria();
+                    aux.Categoria = new Categoria();
 
                     if (datos.Lector["IdCategoria"] != DBNull.Value)
                     {
@@ -57,7 +57,7 @@ namespace negocio
                     else
                     {
                         aux.Categoria.Descripcion = "Sin categoría"; 
-                    }*/
+                    }
                    
 
 
