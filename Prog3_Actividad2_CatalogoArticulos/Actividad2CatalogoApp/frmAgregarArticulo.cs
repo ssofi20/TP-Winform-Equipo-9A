@@ -31,7 +31,7 @@ namespace Actividad2CatalogoApp
         }
         private void cargarImagen()
         {
-            if (listaImagenes != null && listaImagenes.Count > 0 && indiceImagen >= 0 && indiceImagen < articulo.Imagenes.Count)
+            if (listaImagenes != null && listaImagenes.Count > 0 && indiceImagen >= 0 && indiceImagen < listaImagenes.Count)
             {
                 try
                 {
