@@ -64,6 +64,21 @@ namespace Actividad2CatalogoApp
             cargar();
         }
 
+        public bool asociado(int id)
+        {
+            ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+            List<Articulo> listaArticulos = new List<Articulo>();
+            listaArticulos = articuloNegocio.listar();
+
+            foreach (Articulo articulo in listaArticulos)
+            {
+                if (articulo.Categoria.Id == id)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             Categoria categoria = new Categoria();
@@ -74,6 +89,12 @@ namespace Actividad2CatalogoApp
                 if (dgvCategorias.CurrentRow != null)
                 {
                     categoria = (Categoria)dgvCategorias.CurrentRow.DataBoundItem;
+                    if (asociado(categoria.Id))
+                    {
+                        MessageBox.Show("No se puede eliminar esta categoria porque esta asociada a uno o mas artículos.");
+                        return;
+                    }
+
                     DialogResult respuesta = MessageBox.Show("¿Está seguro que desea eliminar la categoría " + categoria.Descripcion + "?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (respuesta == DialogResult.Yes)
                     {

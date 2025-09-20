@@ -36,6 +36,24 @@ namespace Actividad2CatalogoApp
             }
         }
 
+        private bool existe(string nombre)
+        {
+
+            List<Categoria> listaCategorias = new List<Categoria>();
+            CategoriaNegocio negocio = new CategoriaNegocio();
+
+            listaCategorias = negocio.listar();
+
+            foreach (Categoria categoria in listaCategorias)
+            {
+                if (categoria.Descripcion.ToLower() == nombre.ToLower())
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             CategoriaNegocio negocio = new CategoriaNegocio();
@@ -47,7 +65,18 @@ namespace Actividad2CatalogoApp
 
                 categoria.Descripcion = txtNombreCategoria.Text;
 
-                if(categoria.Id != 0)
+                if(existe(categoria.Descripcion))
+                {
+                    MessageBox.Show("El nombre indicado ya existe. Por favor elegir un nombre distinto.");
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(txtNombreCategoria.Text))
+                {
+                    MessageBox.Show("Escribir el nombre para poder continuar.");
+                    return;
+                }
+
+                if (categoria.Id != 0)
                 {
                     negocio.modificar(categoria);
                     MessageBox.Show("Categoria modificada exitosamente");
