@@ -103,71 +103,13 @@ namespace Actividad2CatalogoApp
             this.Close();
         }
 
-        private bool validarCampos()
-        {
-            if (string.IsNullOrWhiteSpace(tbxCodigo.Text))
-            {
-                MessageBox.Show("Debe ingresar un código.");
-                tbxCodigo.Focus();
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(tbxNombre.Text))
-            {
-                MessageBox.Show("Debe ingresar un nombre.");
-                tbxNombre.Focus();
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(tbxDescription.Text))
-            {
-                MessageBox.Show("Debe ingresar una descripción.");
-                tbxDescription.Focus();
-                return false;
-            }
-
-            if (cbxMarca.SelectedIndex < 0)
-            {
-                MessageBox.Show("Debe seleccionar una marca.");
-                cbxMarca.Focus();
-                return false;
-            }
-
-            if (cbxCategoria.SelectedIndex < 0)
-            {
-                MessageBox.Show("Debe seleccionar una categoría.");
-                cbxCategoria.Focus();
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtPrecio.Text))
-            {
-                MessageBox.Show("Debe ingresar un precio.");
-                txtPrecio.Focus();
-                return false;
-            }
-
-            if (!decimal.TryParse(txtPrecio.Text, out decimal precio) || precio < 0)
-            {
-                MessageBox.Show("El precio debe ser un número válido y positivo.");
-                txtPrecio.Focus();
-                return false;
-            }
-
-            return true;
-        }
-
-
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
          
             try
             {
-                if (!validarCampos())
-                    return; // corta el guardado si falta algo
-
-                if (articulo == null)
+                if(articulo == null)
                   articulo = new Articulo();
 
                 articulo.Codigo = tbxCodigo.Text;
@@ -266,7 +208,6 @@ namespace Actividad2CatalogoApp
                 indiceImagen++;
                 cargarImagen();
                 actualizarBotones();
-                txtUrlImagen.Focus();
             }
         }
 
@@ -277,7 +218,6 @@ namespace Actividad2CatalogoApp
                 indiceImagen--;
                 cargarImagen();
                 actualizarBotones();
-                txtUrlImagen.Focus();
             }
         }
 
