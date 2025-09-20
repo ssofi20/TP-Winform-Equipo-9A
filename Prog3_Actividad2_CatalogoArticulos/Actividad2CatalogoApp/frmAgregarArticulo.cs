@@ -87,9 +87,9 @@ namespace Actividad2CatalogoApp
                     tbxNombre.Text = articulo.Nombre;
                     tbxDescription.Text = articulo.Descripcion;
                     txtPrecio.Text = articulo.Precio.ToString();
-                    cbxMarca.SelectedValue = articulo.Marca.Id;
                     cbxCategoria.SelectedValue = articulo.Categoria.Id;
-                    listaImagenes = articulo.Imagenes ?? new List<Imagen>();
+                    cbxMarca.SelectedValue = articulo.Marca.Id;
+                        listaImagenes = articulo.Imagenes ?? new List<Imagen>();
                     if (listaImagenes.Count > 0)
                     {
                         indiceImagen = 0;
@@ -182,6 +182,17 @@ namespace Actividad2CatalogoApp
 
                 if (articulo == null)
                   articulo = new Articulo();
+
+                if ((int)cbxCategoria.SelectedValue == 0)
+                {
+                    MessageBox.Show("Debe seleccionar una categoría.");
+                    return;
+                }
+                if ((int)cbxMarca.SelectedValue == 0)
+                {
+                    MessageBox.Show("Debe seleccionar una marca.");
+                    return;
+                }
 
                 articulo.Codigo = tbxCodigo.Text;
                 articulo.Nombre = tbxNombre.Text;
