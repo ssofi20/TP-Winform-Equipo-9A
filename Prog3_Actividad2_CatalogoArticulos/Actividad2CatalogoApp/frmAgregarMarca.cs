@@ -33,6 +33,24 @@ namespace Actividad2CatalogoApp
             this.Close();
         }
 
+        private bool existe(string nombre)
+        {
+
+            List<Marca> listaMarcas = new List<Marca>();
+            MarcaNegocio negocio = new MarcaNegocio();
+
+            listaMarcas = negocio.listar();
+
+            foreach (Marca marca in listaMarcas)
+            {
+                if (marca.Descripcion.ToLower() == nombre.ToLower())
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             MarcaNegocio negocio = new MarcaNegocio();
@@ -43,8 +61,18 @@ namespace Actividad2CatalogoApp
                     marca = new Marca();
 
                 marca.Descripcion = txtNombreMarca.Text;
-                
-                if(marca.Id != 0)
+                if (existe(marca.Descripcion))
+                {
+                    MessageBox.Show("El nombre indicado ya existe. Por favor elegir un nombre distinto.");
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(txtNombreMarca.Text))
+                {
+                    MessageBox.Show("Escribir el nombre para poder continuar.");
+                    return;
+                }
+
+                if (marca.Id != 0)
                 {
                     negocio.modificar(marca);
                     MessageBox.Show("Marca modificada exitosamente");

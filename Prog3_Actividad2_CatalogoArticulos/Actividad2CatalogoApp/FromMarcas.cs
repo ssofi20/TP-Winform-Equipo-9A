@@ -45,6 +45,21 @@ namespace Actividad2CatalogoApp
             cargar();
         }
 
+        public bool asociado(int id)
+        {
+            ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+            List<Articulo> listaArticulos = new List<Articulo>();
+            listaArticulos = articuloNegocio.listar();
+
+            foreach (Articulo articulo in listaArticulos)
+            {
+                if (articulo.Marca.Id == id)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             MarcaNegocio marcaNegocio = new MarcaNegocio();
@@ -54,6 +69,11 @@ namespace Actividad2CatalogoApp
                 if (dgvMarcas.CurrentRow != null)
                 {
                     marcaSeleccionada = (Marca)dgvMarcas.CurrentRow.DataBoundItem;
+                    if (asociado(marcaSeleccionada.Id))
+                    {
+                        MessageBox.Show("No se puede eliminar esta marca porque esta asociada a uno o mas artículos.");
+                        return;
+                    }
                     DialogResult respuesta = MessageBox.Show("¿Está seguro que desea eliminar la marca " + marcaSeleccionada.Descripcion + "?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (respuesta == DialogResult.Yes)
                     {
