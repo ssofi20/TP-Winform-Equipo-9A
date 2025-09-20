@@ -58,13 +58,26 @@ namespace Actividad2CatalogoApp
 
             try
             {
-                cbxCategoria.DataSource = auxCat.listar();
+                List<Categoria> listaCat = new List<Categoria>();
+                listaCat = auxCat.listar();
+
+                listaCat.Insert(0, new Categoria { Id = 0, Descripcion = "Seleccionar" });
+
+                cbxCategoria.DataSource = listaCat;
                 cbxCategoria.ValueMember = "Id";
                 cbxCategoria.DisplayMember = "Descripcion";
+                cbxCategoria.SelectedIndex = 0;
 
-                cbxMarca.DataSource = auxMarca.listar();
+                List<Marca> listaMarca = new List<Marca>();
+                listaMarca = auxMarca.listar();
+
+                listaMarca.Insert(0, new Marca { Id = 0, Descripcion = "Seleccionar" });
+
+                cbxMarca.DataSource = listaMarca;
                 cbxMarca.ValueMember = "Id";
                 cbxMarca.DisplayMember = "Descripcion";
+                cbxMarca.SelectedIndex = 0;
+
 
                 //Si es una modificacion
                 if(articulo != null)
